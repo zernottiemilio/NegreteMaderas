@@ -1,0 +1,55 @@
+.carousel {
+  position: relative;
+  width: 100%; /* Ancho del carrusel */
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* Contenedor que agrupa todas las imágenes */
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-container {
+  display: flex;
+  height: 350px;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Estilo de las imágenes */
+.carousel-container img {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  height: 100%; /* Ocupa toda la altura del contenedor */
+  object-fit: cover; /* Recorta la imagen para llenar el espacio sin distorsión */
+  flex-shrink: 0; /* Evita que las imágenes se redimensionen */
+}
+
+/* Botones de navegación */
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background-color 0.3s;
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}

@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Header con imagen de fondo */
+header {
+  position: relative;
+  height: 300px; /* Altura del header */
+  background-image: url('/wetransfer_fotos-seccion-inicio_2024-12-06_2050/6.jpg'); /* Reemplaza con tu imagen */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+header .logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+header .logo img {
+  height: 80px;
+}
+
+/* Navegación */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 40px; /* Aumenta el espacio entre los elementos */
+  justify-content: flex-end;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 22px; /* Aumenta el tamaño de la fuente */
+  font-weight: 700; /* Más grosor para el texto */
+  transition: all 0.3s ease; /* Transición para color, tamaño y sombra */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto para mayor visibilidad */
+}
+
+nav ul li a:hover {
+  color: #4CAF50;
+  font-size: 24px; /* Aumenta el tamaño en hover */
+  transform: scale(1.1); /* Aumenta la escala ligeramente */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Sombra más grande en hover */
+}
+
+/* Separación entre el header y el carrusel */
+header + .carousel {
+  margin-top: 20px; /* Espacio entre el header y el carrusel */
+  border-top: 4px solid #4CAF50; /* Línea decorativa */
+  padding-top: 10px;
+}
+
+/* Estilo del carrusel */
+.carrusel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  background-color: #ddd; /* Color temporal por si tarda la imagen */
+}
+
+.carousel-container {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.carousel-slide {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide img {
+  min-width: 100%;
+  height: 500px; /* Altura fija para el carrusel */
+  object-fit: cover; /* Ajusta la imagen manteniendo proporciones */
+}
+
+/* Banner */
+.banner {
+  background-image: url('/Material_Palo/wetransfer_fotos-seccion-inicio_2024-12-06_2050/7.jpg'); /* Reemplaza con tu imagen */
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.banner .banner-text {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Contenido */
+.content {
+  padding: 50px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex; /* Para subdividir mejor */
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que las secciones se ajusten en pantallas pequeñas */
+}
+
+.company-description, .contact {
+  flex: 1 1 calc(50% - 20px); /* Ocupa el 50% del ancho con espacio entre columnas */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px; /* Espacio entre filas */
+}
+
+.company-description h2, .contact h2 {
+  font-size: 28px;
+  color: #4CAF50; /* Verde */
+  margin-bottom: 15px;
+}
+
+.company-description p, .contact p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+}
+
+/* Social Links  */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+footer .social-links img {
+  height: 20px;
+  width: 20px;
+}
+
+footer p {
+  font-size: 12px;
+}
