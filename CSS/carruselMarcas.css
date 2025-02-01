@@ -1,0 +1,26 @@
+.carouselM {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.carousel-wrapperM {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-containerM {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-containerM img {
+  width: 100%;
+  height: 400px;
+  /* Ajusta la altura según tus necesidades */
+  object-fit: contain;
+  /* O "cover", dependiendo del diseño que prefieras */
+  flex-shrink: 0;
+}

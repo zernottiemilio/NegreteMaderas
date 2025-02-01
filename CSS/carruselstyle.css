@@ -14,7 +14,7 @@
 
 .carousel-container {
   display: flex;
-  height: 350px;
+  height: 600px;
   transition: transform 0.5s ease-in-out;
 }
 

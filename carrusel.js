@@ -1,68 +1,59 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const carouselContainer = document.querySelector('.carousel-container');
-  const images = document.querySelectorAll('.carousel-container img');
-  const prevButton = document.querySelector('.carousel-prev');
-  const nextButton = document.querySelector('.carousel-next');
+document.addEventListener("DOMContentLoaded", () => {
+  const carouselContainer = document.querySelector(".carousel-container");
+  const images = document.querySelectorAll(".carousel-container img");
+  const totalImages = images.length;
 
-  let currentIndex = 0;
+  let currentIndex = 1; // Empezamos en la primera imagen real
 
-  // Función para actualizar la posición del carrusel
+  // Clonamos la primera y última imagen
+  const firstClone = images[0].cloneNode(true);
+  const lastClone = images[totalImages - 1].cloneNode(true);
+
+  // Agregamos los clones en los extremos
+  carouselContainer.insertBefore(lastClone, images[0]);
+  carouselContainer.appendChild(firstClone);
+
+  // Actualizamos la lista de imágenes
+  const allImages = document.querySelectorAll(".carousel-container img");
+  const imageWidth = allImages[0].clientWidth;
+
+  // Ajustamos la posición inicial
+  carouselContainer.style.transform = `translateX(-${
+    currentIndex * imageWidth
+  }px)`;
+
   function updateCarousel() {
-    const imageWidth = images[0].clientWidth;
-    carouselContainer.style.transition = 'transform 0.5s ease-in-out'; // Animación suave
-    carouselContainer.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
+    carouselContainer.style.transition = "transform 0.5s ease-in-out";
+    carouselContainer.style.transform = `translateX(-${
+      currentIndex * imageWidth
+    }px)`;
   }
 
-  // Función para avanzar al siguiente slide
   function nextSlide() {
-    const totalImages = images.length;
-
-    if (currentIndex < totalImages - 1) {
-      currentIndex++;
-    } else {
-      // Cuando esté en la última imagen, salta directamente a la primera
-      currentIndex = 0;
-      carouselContainer.style.transition = 'none'; // Quita la animación temporalmente
-      carouselContainer.style.transform = `translateX(0px)`;
-
-      // Espera un instante antes de activar nuevamente la animación
-      setTimeout(() => {
-        carouselContainer.style.transition = 'transform 0.5s ease-in-out';
-      }, 50);
-    }
-
+    currentIndex++;
     updateCarousel();
+
+    // Cuando llega al clon de la primera imagen, saltamos a la imagen real sin animación
+    if (currentIndex === allImages.length - 1) {
+      setTimeout(() => {
+        carouselContainer.style.transition = "none";
+        currentIndex = 1;
+        carouselContainer.style.transform = `translateX(-${
+          currentIndex * imageWidth
+        }px)`;
+      }, 500);
+    }
   }
 
-  // Función para retroceder al slide anterior
-  function prevSlide() {
-    const totalImages = images.length;
-
-    if (currentIndex > 0) {
-      currentIndex--;
-    } else {
-      // Si está en la primera imagen, salta directamente a la última
-      currentIndex = totalImages - 1;
-      carouselContainer.style.transition = 'none'; // Quita la animación temporalmente
-      const imageWidth = images[0].clientWidth;
-      carouselContainer.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
-
-      // Espera un instante antes de activar nuevamente la animación
-      setTimeout(() => {
-        carouselContainer.style.transition = 'transform 1s ease-in-out';
-      }, 50);
-    }
-
-    updateCarousel();
-  }
-
-  // Eventos de los botones
-  nextButton.addEventListener('click', nextSlide);
-  prevButton.addEventListener('click', prevSlide);
+  // Mueve el carrusel automáticamente cada 3 segundos
+  setInterval(nextSlide, 2000);
 
   // Ajustar el carrusel al redimensionar la ventana
-  window.addEventListener('resize', updateCarousel);
-
-  // Inicializar el carrusel
-  updateCarousel();
+  window.addEventListener("resize", () => {
+    const newWidth = allImages[0].clientWidth;
+    carouselContainer.style.transition = "none";
+    carouselContainer.style.transform = `translateX(-${
+      currentIndex * newWidth
+    }px)`;
+  });
 });

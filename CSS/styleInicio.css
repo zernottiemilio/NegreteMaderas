@@ -1,170 +1,364 @@
-* {
+body,
+h1,
+h2,
+p {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Made', sans-serif;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-/* Header con imagen de fondo */
+/* Encabezado */
 header {
-  position: relative;
-  height: 300px; /* Altura del header */
-  background-image: url('/wetransfer_fotos-seccion-inicio_2024-12-06_2050/6.jpg'); /* Reemplaza con tu imagen */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 30px 30px;
+  background-image: url('/images/RECTANGULO\ DE\ ARRIBA-12.png');
   background-size: cover;
   background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: white;
+  color: #fff;
+  position: relative;
+  z-index: 2;
 }
 
-header .logo {
+.logo {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  z-index: 3;
 }
 
-header .logo img {
-  height: 80px;
+.logo img {
+  height: 125px;
+  width: auto;
 }
 
-/* Navegación */
+nav {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  margin-top: 120px;
+  z-index: 3;
+}
+
 nav ul {
   list-style: none;
   display: flex;
-  gap: 40px; /* Aumenta el espacio entre los elementos */
-  justify-content: flex-end;
-  margin-right: 40px;
-  margin-top: 20px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 10px;
+  position: relative;
 }
 
 nav ul li a {
+  color: #fff;
   text-decoration: none;
-  color: white;
-  font-size: 22px; /* Aumenta el tamaño de la fuente */
-  font-weight: 700; /* Más grosor para el texto */
-  transition: all 0.3s ease; /* Transición para color, tamaño y sombra */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto para mayor visibilidad */
+  padding: 10px 15px;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
   color: #4CAF50;
-  font-size: 24px; /* Aumenta el tamaño en hover */
-  transform: scale(1.1); /* Aumenta la escala ligeramente */
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Sombra más grande en hover */
 }
 
-/* Separación entre el header y el carrusel */
-header + .carousel {
-  margin-top: 20px; /* Espacio entre el header y el carrusel */
-  border-top: 4px solid #4CAF50; /* Línea decorativa */
-  padding-top: 10px;
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0 0 10px 10px;
+  transform: scaleX(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
 }
 
-/* Estilo del carrusel */
-.carrusel {
-  width: 100%;
-  overflow: hidden;
+nav ul li a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Carrusel Principal */
+#inicio {
   position: relative;
-  margin: 0 auto;
-  background-color: #ddd; /* Color temporal por si tarda la imagen */
-}
-
-.carousel-container {
-  display: flex;
   width: 100%;
-  position: relative;
+  height: auto;
+  height: calc(100vh - 100px);
+  margin-top: -100px;
+  z-index: 1;
 }
 
-.carousel-slide {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
+.carousel-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
 }
 
-.carousel-slide img {
-  min-width: 100%;
-  height: 500px; /* Altura fija para el carrusel */
-  object-fit: cover; /* Ajusta la imagen manteniendo proporciones */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
 }
 
-/* Banner */
-.banner {
-  background-image: url('/Material_Palo/wetransfer_fotos-seccion-inicio_2024-12-06_2050/7.jpg'); /* Reemplaza con tu imagen */
-  background-size: cover;
-  background-position: center;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
+.carousel-prev {
+  left: 20px;
 }
 
-.banner .banner-text {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  border-radius: 10px;
+.carousel-next {
+  right: 20px;
 }
+
+
 
 /* Contenido */
 .content {
   padding: 50px 20px;
   max-width: 1200px;
   margin: 0 auto;
-  display: flex; /* Para subdividir mejor */
+  display: flex;
   gap: 20px;
-  flex-wrap: wrap; /* Permite que las secciones se ajusten en pantallas pequeñas */
+  flex-wrap: wrap;
 }
 
-.company-description, .contact {
-  flex: 1 1 calc(50% - 20px); /* Ocupa el 50% del ancho con espacio entre columnas */
+.company-description,
+.contact {
+  flex: 1 1 calc(50% - 20px);
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
-  margin-bottom: 20px; /* Espacio entre filas */
+  margin-bottom: 20px;
 }
 
-.company-description h2, .contact h2 {
+.company-description h2,
+.contact h2 {
   font-size: 28px;
-  color: #4CAF50; /* Verde */
+  color: #4CAF50;
   margin-bottom: 15px;
 }
 
-.company-description p, .contact p {
+.company-description p,
+.contact p {
   font-size: 16px;
   line-height: 1.6;
   color: #666;
 }
 
-/* Social Links  */
+/* Footer */
 footer {
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
+  background: linear-gradient(to right, #333333, #4CAF50);
+  color: #fff;
+  padding: 5px 10px;
+  /* Reduce la altura */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 footer .social-links {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  justify-content: flex-start;
+  /* Centrado a la izquierda */
+  align-items: center;
+  gap: 5px;
 }
 
 footer .social-links img {
-  height: 20px;
-  width: 20px;
+  height: 35px;
+  /* Ajusta el tamaño de los íconos */
+  width: 35px;
 }
 
 footer p {
   font-size: 12px;
+  /* Tamaño más pequeño */
+  text-align: right;
+  /* Alineado a la derecha */
+  margin: 0;
+}
+
+/* Sección de Servicios */
+.servicios {
+  padding: 50px 20px;
+  background-color: #f5f5f5;
+}
+
+.servicios-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.servicio-item {
+  flex: 1;
+  min-width: 300px;
+  max-width: 350px;
+  text-align: center;
+}
+
+.servicio-imagen {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20px;
+  border: 5px solid #4CAF50;
+}
+
+.servicio-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.servicio-titulo {
+  color: #4CAF50;
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.servicio-descripcion {
+  color: #666;
+  line-height: 1.6;
+  padding: 0 15px;
+}
+
+/* Sección de Productos */
+.productos {
+    padding: 40px 0;
+    background-color: #fff;
+    overflow-x: auto; /* Permite scroll horizontal */
+}
+
+.productos-grid {
+    display: flex; /* Cambiado de grid a flex */
+    flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
+    gap: 20px;
+    padding: 20px;
+    max-width: none; /* Removido el max-width para permitir scroll */
+    margin: 0 20px;
+}
+
+.producto-item {
+    flex: 0 0 300px; /* Ancho fijo para cada item */
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.producto-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.producto-item:hover img {
+    transform: scale(1.8);
+}
+
+.producto-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(76, 175, 80, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.producto-overlay h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+/* Responsive para productos */
+@media (max-width: 768px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Reducido de 300px a 250px */
+  gap: 20px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Para asegurar que se muestren 3 columnas en pantallas grandes */
+@media (min-width: 992px) {
+  .productos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Para tablets */
+@media (max-width: 991px) and (min-width: 768px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Para móviles */
+@media (max-width: 767px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* carrusel marcas */
+
+.productos-marca {
+  margin-top: 40px;
+  text-align: center;
+}
+
+#dynamic-carousel {
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-containerM {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-containerM img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
 }
