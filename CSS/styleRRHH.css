@@ -1,0 +1,297 @@
+body,
+h1,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+  font-family: 'Made', sans-serif;
+}
+/* Encabezado */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 30px 30px;
+  background-image: url('/images/RECTANGULO\ DE\ ARRIBA-12.png');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  z-index: 3;
+}
+
+.logo img {
+  height: 125px;
+  width: auto;
+}
+
+nav {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  margin-top: 120px;
+  z-index: 3;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 10px;
+  position: relative;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #4CAF50;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0 0 10px 10px;
+  transform: scaleX(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  transform: scaleX(1);
+}
+
+.main-banner {
+  position: relative;
+  width: 100%;
+  height: auto;
+  height: calc(100vh - 100px);
+  margin-top: -100px;
+  z-index: 1;
+}
+
+.main-banner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.banner-text {
+  position: relative;
+  z-index: 2;
+}
+.content {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.job-card {
+  background: #ffffff;
+  /* Ajuste si la imagen muestra fondo más claro */
+  width: 80%;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  margin: 30px auto;
+  text-align: center;
+}
+
+.job-card p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  margin-left: 40px;
+}
+
+.cv-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  margin-left: 40px;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cv-button:hover {
+  background: #45a049;
+}
+
+footer {
+  background: linear-gradient(to right, #333333, #4CAF50);
+  color: #fff;
+  padding: 5px 10px;
+  /* Reduce la altura */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer .social-links {
+  display: flex;
+  justify-content: flex-start;
+  /* Centrado a la izquierda */
+  align-items: center;
+  gap: 5px;
+}
+
+footer .social-links img {
+  height: 30px;
+  width: 30px;
+}
+
+footer p {
+  font-size: 12px;
+  /* Tamaño más pequeño */
+  text-align: right;
+  /* Alineado a la derecha */
+  margin: 0;
+}
+
+/* CSS for the buttons */
+.nav-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 15px;
+  margin-right: 15px;
+  margin-top: 9px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.rrhh-btn {
+  background-color: transparent;
+  color: black;
+}
+
+.rrhh-btn:hover {
+  background-color: #4CAF50;
+}
+
+.login-btn {
+  background-color: transparent;
+  color: black;
+}
+
+.login-btn:hover {
+  background-color: #4CAF50;
+}
+
+.nav-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.trabaja-con-nosotros h3 {
+  position: relative;
+  /* Necesario para el pseudo-elemento */
+  display: inline-block;
+  /* Ajusta el ancho al contenido del texto */
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.trabaja-con-nosotros h3::after {
+  content: "";
+  /* Crea el elemento visual */
+  position: absolute;
+  bottom: -15px;
+  /* Distancia del degradado respecto al texto */
+  left: 0;
+  width: 50%;
+  /* Ancho del degradado */
+  height: 15px;
+  /* Grosor del degradado */
+  background: linear-gradient(to right, #4CAF50, #fff);
+}
+
+.trabaja-con-nosotros {
+  text-align: left;
+  /* Alinea el texto a la izquierda */
+  margin-left: 20px;
+  /* Asegura que no tenga margen extra */
+  padding-left: 0;
+  /* Si el contenedor tiene padding, lo elimina */
+}
+
+.trabaja-con-nosotros h3,
+.trabaja-con-nosotros p {
+  margin-left: 0;
+  /* Asegura que ambos elementos comiencen alineados */
+  text-align: left;
+  max-width: 80%;
+  /* Ajusta el ancho del texto para que no se extienda demasiado */
+}
+
+.job-card{
+  text-align: left;
+  margin-left: 20px;
+  padding-left: 0;
+}
+
+.job-card .cv-button{
+  margin-top: 15px;
+}
+
+
+

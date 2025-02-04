@@ -1,8 +1,4 @@
-/* Estilos generales */
-body,
-h1,
-h2,
-p {
+*{
   margin: 0;
   padding: 0;
   font-family: 'Made', sans-serif;
@@ -13,49 +9,26 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 250px;
+  height: 100px;
   padding: 30px 30px;
-  background-image: url('/images/5.jpg');
-  /* Imagen de fondo */
+  background-image: url('/images/RECTANGULO\ DE\ ARRIBA-12.png');
   background-size: cover;
   background-position: center;
   color: #fff;
   position: relative;
-}
-.sobreN-section h1{
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  z-index: 2;
 }
 
-.sobreN-section{
-  position: absolute;
-    /* Posiciona el logo de forma absoluta */
-    bottom: 0;
-    /* Alínea al borde superior */
-    left: 0;
-    /* Alínea al borde izquierdo */
-    padding: 10px;
-    margin-left: 14px;
-}
-.sobreN-title{
-  height: 100px;
-  width: auto;
-}
 .logo {
   position: absolute;
-  /* Posiciona el logo de forma absoluta */
   top: 0;
-  /* Alínea al borde superior */
   left: 0;
-  /* Alínea al borde izquierdo */
   padding: 10px;
-  /* Añade algo de espacio interno opcional */
+  z-index: 3;
 }
 
 .logo img {
   height: 125px;
-  /* Mantén el tamaño del logo */
   width: auto;
 }
 
@@ -63,8 +36,8 @@ nav {
   position: absolute;
   top: 0;
   right: 20px;
-  margin-top: 30px;
-  /* Ajusta la distancia desde el borde derecho */
+  margin-top: 120px;
+  z-index: 3;
 }
 
 nav ul {
@@ -78,7 +51,6 @@ nav ul {
 nav ul li {
   margin: 0 10px;
   position: relative;
-  /* Necesario para el pseudo-elemento del hover */
 }
 
 nav ul li a {
@@ -86,7 +58,6 @@ nav ul li a {
   text-decoration: none;
   padding: 10px 15px;
   position: relative;
-  /* Necesario para superponer efectos */
   transition: color 0.3s ease;
 }
 
@@ -100,137 +71,416 @@ nav ul li a::after {
   left: 0;
   right: 0;
   bottom: -10px;
-  /* Espacio entre el enlace y el pseudo-elemento */
   height: 10px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 0 0 10px 10px;
-  /* Solo redondea la parte inferior */
   transform: scaleX(0);
-  /* Oculto por defecto */
   transform-origin: top;
   transition: transform 0.3s ease;
 }
 
 nav ul li a:hover::after {
   transform: scaleX(1);
-  /* Se expande horizontalmente */
 }
-
-.consultation-center button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  /* Cambiado a color verde */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.consultation-center button:hover {
-  background-color: #3e8e41;
-  /* Un tono más oscuro para el hover */
-}
-
-.about-us .info-cards {
+.nav-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 15px;
+  margin-right: 15px;
+  margin-top: 9px;
 }
 
-.info-cards .card {
-  background-color: black;
-  /* Fondo negro */
-  border-radius: 40px;
-  width: 500px;
-  margin-top: 20px;
-  height: 350px;
-  overflow: hidden;
-    /* Oculta el exceso */
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.rrhh-btn {
+  background-color: transparent;
+  color: black;
+}
+
+.rrhh-btn:hover {
+  background-color: #4CAF50;
+}
+
+.login-btn {
+  background-color: transparent;
+  color: black;
+}
+
+.login-btn:hover {
+  background-color: #4CAF50;
+}
+
+.nav-btn img {
+  width: 20px;
+  height: 20px;
+}
+.main-banner {
   position: relative;
-  overflow: hidden;
-  cursor: pointer;
+  width: 100%;
+  height: auto;
+  height: calc(100vh - 100px);
+  margin-top: -100px;
+  z-index: 1;
 }
 
-
-
-.info-cards .front,
-.info-cards .back {
+.main-banner img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* ✅ Estilos generales de la línea del tiempo */
+.timeline {
+  position: relative;
+  list-style: none;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background-color: #008000;
+  transform: translateX(-50%);
+}
+
+/* ✅ Estilos de cada ítem de la línea del tiempo */
+.timeline li {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.6s;
-  backface-visibility: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 50px;
 }
 
-.info-cards .front {
-  background-color: black;
-  color: white;
+/* ✅ Estilos de los paneles de texto */
+.timeline-panel {
+  width: 40%;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: justify;
   z-index: 2;
-}
-
-.info-cards .back {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-  transform: rotateY(180deg);
-}
-
-.info-cards .card:hover .front {
-  transform: rotateY(180deg);
-}
-
-.info-cards .card:hover .back {
-  transform: rotateY(360deg);
-}
-
-.info-cards .card i {
-  font-size: 2em;
-  color: #4CAF50;
-  margin-bottom: 10px;
-}
-.card .back {
-    background: linear-gradient(to right, #4CAF50, #000);
-    color: white;
-    transform: rotateY(180deg);
-    text-align: center;
-    padding: 20px;
-    }
-
-.social-links {
   display: flex;
+  flex-direction: column;
+}
+
+/* ✅ Estilos de los círculos con imágenes (agrandados 2.5 veces) */
+.timeline-image {
+  width: 300px;
+  /* 120px * 2.5 */
+  height: 300px;
+  /* 120px * 2.5 */
+  border: 5px solid #008000;
+  /* 7px * 2.5 */
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
-  /* Ajusta el espacio entre los iconos */
-  padding: 20px 0;
+  overflow: hidden;
 }
 
-.social-links img {
-  height: 30px;
-  /* Ajusta la altura de los iconos */
-  width: 30px;
-  /* Asegura que los iconos sean cuadrados */
-  transition: transform 0.3s ease-in-out;
+/* Ajustar imagen para que ocupe todo el espacio del círculo */
+.timeline-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-.social-links img:hover {
-  transform: rotate(360deg);
+.timeline-image:hover {
+  transform: scale(1.2);
 }
 
-footer {
-  background-color: #4CAF50;
-  /* Cambiado a color verde */
-  color: white;
+/* ✅ Alternar posiciones de imágenes y texto */
+.timeline li:nth-child(odd) {
+  flex-direction: row;
+}
+
+.timeline li:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timeline li:nth-child(odd) .timeline-panel {
+  text-align: right;
+  margin-right: 60px;
+}
+
+.timeline li:nth-child(even) .timeline-panel {
+  text-align: left;
+  margin-left: 60px;
+}
+
+/* ✅ Posicionamiento de los círculos en la línea del tiempo */
+.timeline li:nth-child(odd) .timeline-image {
+  left: calc(38% - 150px);
+  /* 85px * 2.5 */
+}
+
+.timeline li:nth-child(even) .timeline-image {
+  left: calc(36% + 150px);
+  /* 85px * 2.5 */
+}
+
+/* ✅ Ajuste de márgenes en los textos */
+.timeline li:nth-child(odd) .timeline-panel {
+  margin-left: auto;
+  margin-right: 1px;
+}
+
+.timeline li:nth-child(even) .timeline-panel {
+  margin-left: 1px;
+  margin-right: auto;
+}
+
+/* ✅ Punto final en la línea del tiempo */
+.timeline::after {
+  content: '';
+  width: 15px;
+  height: 15px;
+  background-color: green;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ✅ Estilos para los títulos */
+h2 {
+  color: #008000;
+  font-size: 2rem;
   text-align: center;
+  margin-bottom: 20px;
+}
+
+h4 {
+  color: #008000;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* 📌 RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .timeline li {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timeline-panel {
+    width: 80%;
+    text-align: center;
+  }
+
+  .timeline-image {
+    position: relative;
+    left: 0;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline li {
+    margin-bottom: 30px;
+    /* Ajusta los márgenes en pantallas más pequeñas */
+  }
+
+  .timeline-image {
+    width: 250px;
+    /* 100px * 2.5 */
+    height: 250px;
+    /* 100px * 2.5 */
+  }
+
+  .timeline-panel {
+    width: 90%;
+    /* Asegura que el panel de texto ocupe más espacio en pantallas pequeñas */
+  }
+}
+
+/* ✅ Estilos generales de la sección */
+.equipo {
+  padding: 60px 0;
+  background-color: white;
+}
+
+.section-heading {
+  color: #008000;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+/* ✅ Contenedor general para los miembros del equipo */
+.contenedor-equipo {
+  display: grid;
+  /* Usamos grid en lugar de flex */
+  grid-template-columns: repeat(4, 1fr);
+  /* Crea 4 columnas de igual tamaño */
+  gap: 30px;
+  /* Espacio entre los elementos */
+  padding: 0 10px;
+}
+
+/* ✅ Estilo para los miembros del equipo (cajas) */
+.miembro {
+  background-color: white;
+  /* Fondo blanco por defecto */
   padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  /* Transiciones suaves */
+  border-radius: 5px;
+  /* Bordes redondeados para las cajas */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+}
+
+/* ✅ Efecto hover para agrandar las cajas */
+.miembro:hover {
+  transform: scale(1.05);
+  /* Aumenta ligeramente el tamaño al pasar el mouse */
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  /* Sombra más pronunciada al hacer hover */
+  background-color: #f0f0f0;
+  /* Fondo gris para toda la caja en hover */
+}
+
+/* ✅ Efecto hover para cambiar el fondo del título y párrafo */
+.miembro:hover h4,
+.miembro:hover p {
+  background-color: #f0f0f0;
+  /* Fondo gris claro para el título y el párrafo */
+  padding: 10px;
+  /* Espaciado dentro del título y párrafo */
+  border-radius: 5px;
+  /* Bordes redondeados en el fondo gris */
+}
+
+/* ✅ Estilo para las imágenes de los miembros */
+.miembro img {
+  width: 100%;
+  /* Asegura que las imágenes ocupen todo el ancho disponible */
+  max-width: 200px;
+  /* Limita el tamaño máximo de la imagen */
+  height: auto;
+  border-radius: 50%;
+  /* Hace que las imágenes sean circulares */
+  margin-bottom: 15px;
+  /* Espacio entre la imagen y el texto */
+}
+
+/* ✅ Estilo para los títulos */
+.miembro h4 {
+  font-size: 1.2rem;
+  color: #008000;
+  margin-bottom: 10px;
+  /* Espacio entre el título y el párrafo */
+}
+
+/* ✅ Estilo para los párrafos */
+.miembro p {
+  color: black;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: background-color 0.3s ease;
+  /* Transición suave para el cambio de fondo */
+}
+
+
+
+/* ✅ Ajustes para pantallas pequeñas (mobile-first approach) */
+@media (max-width: 1024px) {
+  .contenedor-equipo {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 por fila en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .contenedor-equipo {
+    grid-template-columns: 1fr;
+    /* 1 por fila en pantallas pequeñas */
+  }
+}
+
+
+h2 {
+  color: #008000;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h4 {
+  color: #008000;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+p {
+  color: black;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(to right, #333333, #4CAF50);
+  color: #fff;
+  padding: 5px 10px;
+  /* Reduce la altura */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer .social-links {
+  display: flex;
+  justify-content: flex-start;
+  /* Centrado a la izquierda */
+  align-items: center;
+  gap: 5px;
+}
+
+footer .social-links img {
+  height: 35px;
+  /* Ajusta el tamaño de los íconos */
+  width: 35px;
 }
 
 footer p {
+  font-size: 12px;
+  /* Tamaño más pequeño */
+  text-align: right;
+  /* Alineado a la derecha */
   margin: 0;
 }
