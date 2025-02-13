@@ -1,67 +1,192 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
+/* Estilos generales del modal */
+.modal-overlay {
+  display: none;
+  /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #4CAF50, #388E3C);
 }
 
-.container {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+.modal-content {
+  background: white;
+  width: 80%;
+  max-width: 400px;
+  padding: 25px;
+  border-radius: 20px;
   text-align: center;
-  width: 350px;
+  position: relative;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
-
-h2 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
+/* Botón de cierre (X) */
+#closeModal {
+  position: absolute;
+  top: 10px;
+  /* Arriba del título */
+  right: 15px;
   font-size: 16px;
+  /* Más pequeño */
   cursor: pointer;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #388E3C;
-}
-
-.toggle-form {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.toggle-form a {
-  color: #4CAF50;
-  text-decoration: none;
+  color: gray;
+  background: none;
+  border: none;
   font-weight: bold;
+  line-height: 1;
 }
 
-.hidden {
-  display: none;
+/* Imagen de inicio de sesión */
+.logo-login {
+  width: 80px;
+  /* Tamaño de la imagen */
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  /* Opcional: si quieres bordes redondeados */
+  object-fit: cover;
+  /* Asegura que la imagen se ajuste correctamente */
+}
+
+/* Título */
+h2 {
+  color: green;
+  font-size: 18px;
+  /* Tamaño ajustado */
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Estilos de los inputs */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centrar elementos horizontalmente */
+  margin-bottom: 15px;
+  /* Espaciado entre campos */
+  width: 100%;
+  /* Ancho completo del contenedor */
+  max-width: 300px;
+  /* Largo fijo para todas las barras */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-container label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  /* Espacio entre el label y el input */
+  font-weight: bold;
+  text-align: center;
+  /* Centrar el texto del label */
+  width: 100%;
+  /* Asegurar que el label ocupe todo el ancho disponible */
+}
+
+.input-container input {
+  width: 100%;
+  /* Ancho completo dentro del contenedor */
+  padding: 12px;
+  /* Altura ajustada */
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  /* Bordes redondeados */
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  /* Efecto suave al enfocar */
+  text-align: center;
+  /* Centrar el texto dentro del input */
+}
+
+.input-container input:focus {
+  border-color: green;
+  /* Cambia el color del borde al enfocar */
+  outline: none;
+}
+
+/* Campo de contraseña con icono */
+.password-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  padding-right: 40px;
+  /* Espacio para el ícono */
+  text-align: center;
+  /* Centrar el texto dentro del input */
+}
+
+.password-container i {
+  position: absolute;
+  right: 12px;
+  /* Ajustado para alinearse perfectamente con la barra */
+  top: 60%;
+  /* Mover el botón un poco más abajo */
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: gray;
+  font-size: 18px;
+}
+
+/* Botón Iniciar sesión */
+button[type="submit"] {
+  background-color: green;
+  color: white;
+  padding: 12px;
+  /* Altura ajustada */
+  width: 80%;
+  /* Ancho ajustado */
+  border: none;
+  border-radius: 20px;
+  /* Bordes redondeados */
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  /* Efecto suave al pasar el mouse */
+}
+
+button[type="submit"]:hover {
+  background-color: darkgreen;
+  /* Cambia el color al pasar el mouse */
+}
+
+/* Enlace de contraseña olvidada */
+.forgot-password {
+  display: block;
+  margin: 15px 0;
+  font-size: 14px;
+  color: green;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  /* Efecto suave al pasar el mouse */
+}
+
+.forgot-password:hover {
+  color: darkgreen;
+  /* Cambia el color al pasar el mouse */
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+    /* Menos espacio interno en pantallas pequeñas */
+  }
+
+  .logo-login {
+    width: 60px;
+    /* Tamaño reducido en móviles */
+    height: 60px;
+  }
 }

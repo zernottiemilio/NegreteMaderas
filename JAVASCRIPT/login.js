@@ -1,31 +1,96 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const loginForm = document.getElementById("login-form");
-  const registerForm = document.getElementById("register-form");
-  const switchToRegister = document.getElementById("switch-to-register");
-  const switchToLogin = document.getElementById("switch-to-login");
-  const formTitle = document.getElementById("form-title");
+  // Obtener referencias a los elementos
+  const modal = document.getElementById("modalOverlay");
+  const openModalButton = document.querySelector(".login-btn");
+  const closeModalButton = document.getElementById("closeModal");
+  const togglePassword = document.querySelector(".toggle-password");
+  const passwordInput = document.getElementById("password");
+  const loginForm = document.querySelector("form");
 
-  switchToRegister.addEventListener("click", function (event) {
-    event.preventDefault();
-    loginForm.classList.add("hidden");
-    registerForm.classList.remove("hidden");
-    formTitle.textContent = "Registro";
+  // Ocultar el modal inmediatamente al cargar
+  if (modal) {
+    modal.style.display = "none";
+  }
+
+  // Verificar el estado de login
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+  // Función para actualizar la interfaz según el estado de login
+  function updateLoginInterface() {
+    if (openModalButton) {
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        // Si está logueado, mostrar botón de cerrar sesión
+        openModalButton.querySelector("p b").textContent = "CERRAR SESIÓN";
+        openModalButton.setAttribute("id", "logoutButton");
+        // Asegurarse de que el modal esté oculto
+        if (modal) {
+          modal.style.display = "none";
+        }
+      } else {
+        // Si no está logueado, mostrar botón de iniciar sesión
+        openModalButton.querySelector("p b").textContent = "INICIAR SESIÓN";
+        openModalButton.removeAttribute("id");
+      }
+    }
+  }
+
+  // Llamar a la función de actualización al cargar la página
+  updateLoginInterface();
+
+  // Event listener para el botón de login/logout
+  if (openModalButton) {
+    openModalButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      if (localStorage.getItem("isLoggedIn") !== "true") {
+        // Si no está logueado, mostrar modal de login
+        modal.style.display = "flex";
+      } else {
+        // Si está logueado, cerrar sesión
+        localStorage.removeItem("isLoggedIn");
+        updateLoginInterface();
+      }
+    });
+  }
+
+  // Cerrar el modal
+  if (closeModalButton) {
+    closeModalButton.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+  }
+
+  // Toggle password visibility
+  if (togglePassword) {
+    togglePassword.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePassword.textContent = "👀";
+      } else {
+        passwordInput.type = "password";
+        togglePassword.textContent = "👁️";
+      }
+    });
+  }
+
+  // Cerrar modal al hacer clic fuera
+  window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
   });
 
-  switchToLogin.addEventListener("click", function (event) {
-    event.preventDefault();
-    registerForm.classList.add("hidden");
-    loginForm.classList.remove("hidden");
-    formTitle.textContent = "Iniciar Sesión";
-  });
+  // Manejar el envío del formulario
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      // Aquí deberías agregar tu lógica de autenticación
 
-  loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    alert("Inicio de sesión exitoso");
-  });
+      // Simular login exitoso
+      localStorage.setItem("isLoggedIn", "true");
+      modal.style.display = "none";
 
-  registerForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    alert("Registro exitoso");
-  });
+      // Actualizar la interfaz inmediatamente
+      updateLoginInterface();
+    });
+  }
 });

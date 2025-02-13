@@ -247,11 +247,6 @@ main {
   padding: 40px;
 }
 
-.contact-form,
-.contact-info,
-.work-with-us {
-  margin-bottom: 40px;
-}
 
 h2 {
   font-size: 24px;
@@ -282,15 +277,40 @@ textarea {
   cursor: pointer;
 }
 
+
+
 .info-item {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  gap: 2px;
+  /* Reducido de 5px a 2px */
 }
 
-.icon {
-  margin-right: 10px;
-  font-size: 20px;
+.info-item .icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Asegura que la imagen esté bien centrada */
+}
+
+.info-item .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.info-item p {
+  margin: 0;
+  padding-top: 15px;
+  /* Añadido para alinear con el centro del icono */
+  font-size: 14px;
 }
 
 .cv-btn {
@@ -304,13 +324,13 @@ textarea {
 
 
 .contact-info{
-  background-color: #fff;
+    background-color: #fff;
     /* Fondo blanco */
     border-radius: 15px;
     /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* Sombra suave */
-    padding: 30px;
+    padding: 10px;
     /* Espaciado interno */
     margin: 20px auto;
     /* Margen superior e inferior, centrado horizontal */
@@ -321,14 +341,6 @@ textarea {
     /* Borde opcional */
 }
 
-
-/* Footer */
-footer {
-  background: linear-gradient(to right, #333333, #4CAF50);
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
 
 .form-map-container {
   display: flex;
@@ -345,20 +357,25 @@ footer {
 .contact-form {
   /* Toma todo el espacio disponible */
   max-width: 600px;
-  /* Limita el tamaño máximo del formulario */
+
 }
 
+.contact-info{
+  width: 90%;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
 /* Estilo del mapa */
 .map-container {
   height: 600px;
-  width: 300px;
+  width: 500px;
   border-radius: 15px;
   /* Puedes ajustar este valor */
   overflow: hidden;
   /* Importante: asegura que el iframe no sobresalga del contenedor */
   margin-top: 90px;
-  margin-left: 150px;
+  margin-left: 120px;
 }
 
 /* Estilo del iframe */
@@ -369,4 +386,37 @@ footer {
   /* Elimina el borde por defecto del iframe */
   border-radius: 15px;
   /* El mismo valor que el contenedor */
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(to right, #333333, #4CAF50);
+  color: #fff;
+  padding: 5px 10px;
+  /* Reduce la altura */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer .social-links {
+  display: flex;
+  justify-content: flex-start;
+  /* Centrado a la izquierda */
+  align-items: center;
+  gap: 5px;
+}
+
+footer .social-links img {
+  height: 35px;
+  /* Ajusta el tamaño de los íconos */
+  width: 35px;
+}
+
+footer p {
+  font-size: 12px;
+  /* Tamaño más pequeño */
+  text-align: right;
+  /* Alineado a la derecha */
+  margin: 0;
 }

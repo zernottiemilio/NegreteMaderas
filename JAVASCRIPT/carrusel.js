@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Mueve el carrusel automáticamente cada 3 segundos
-  setInterval(nextSlide, 3000);
+  setInterval(nextSlide, 3500);
 
   // Ajustar el carrusel al redimensionar la ventana
   window.addEventListener("resize", () => {
