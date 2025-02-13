@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogos de Productos</title>
+  <link rel="stylesheet" href="/CSS/ofertas.css">
+  <link rel="icon" type="image/x-icon" href="/images/FAVICON_Mesa de trabajo 1.png">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="/HTML/indexInicio.html">
+        <img src="/images/NEGRETE Logo-02.png" alt="Negrete Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/HTML/indexInicio.html">INICIO</a></li>
+        <li><a href="/HTML/catalogo.html">CATALOGO</a></li>
+        <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
+        <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
+      </ul>
+    </nav>
+    <div class="nav-buttons">
+      <a href="/HTML/rrhh.html" class="nav-btn rrhh-btn">
+        <img src="/images/ICONOS INICIO-13.png" alt="RRHH icon">
+        <p><b>RRHH</b></p>
+      </a>
+
+      <a href="/HTML/indexInicio.html" class="nav-btn login-btn">
+        <img src="/images/ICONOS INICIO-14.png" alt="Login icon">
+        <p><b>INICIAR SESIÓN</b></p>
+      </a>
+    </div>
+  </header>
+  <!-- Banner -->
+  <div class="main-banner">
+    <img src="/images/FOTO OFERTA CON CURVA-23.png" alt="Banner">
+  </div>
+  <main>
+    <div class="category-container">
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-24.png" alt="oferta">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-25.png" alt="oferta">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-26.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-27.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-28.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-29.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-30.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-31.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-32.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-33.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-34.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-35.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-36.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-37.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-38.png" alt="ofertas">
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#">
+          <img src="/images/DISEÑO WEB-39.png" alt="ofertas">
+        </a>
+      </div>
+  </main>
+  <footer>
+    <div class="social-links">
+      <a href="https://www.instagram.com/negrete.maderas?igsh=aXJhZGxva3V0dGsw" target="_blank">
+        <img src="/images/ICONOS CONTACTOS-12.png" alt="Instagram"></a>
+      <a href="https://www.facebook.com/share/1UaV8zKZzH/?mibextid=wwXIfr"><img src="/images/ICONOS CONTACTOS-13.png"
+          alt="Facebook"></a>
+      <a href="#"><img src="/images/ICONOS CONTACTOS-14.png" alt="Telefono"></a>
+      <a href="#"><img src="/images/ICONOS CONTACTOS-15.png" alt="Mail"></a>
+    </div>
+    <p>&copy; 2025 NEGRETE MADERAS. Todos los derechos reservados.</p>
+  </footer>
+  <script>
+    document.querySelectorAll('.category-item a').forEach(item => {
+        item.addEventListener('click', function (event) {
+          event.preventDefault();
+
+          const img = item.querySelector('img');
+          const parent = item.closest('.category-item');
+
+          // Si la imagen está ampliada, la cerramos
+          if (img.classList.contains('enlarged')) {
+            img.classList.remove('enlarged');
+            parent.classList.remove('clicked');
+          } else {
+            img.classList.add('enlarged');
+            parent.classList.add('clicked');
+          }
+        });
+      });
+
+      // Cuando se hace clic fuera de la imagen ampliada, cerrarla
+      document.addEventListener('click', function (event) {
+        const enlargedImg = document.querySelector('.category-item img.enlarged');
+        const clickedOutside = !enlargedImg.contains(event.target) && !event.target.closest('.category-item');
+
+        if (enlargedImg && clickedOutside) {
+          enlargedImg.classList.remove('enlarged');
+          enlargedImg.closest('.category-item').classList.remove('clicked');
+        }
+      });
+
+  </script>
+</body>
+
+</html>
