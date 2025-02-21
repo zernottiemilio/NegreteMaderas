@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Obtener referencias a los elementos
   const modal = document.getElementById("modalOverlay");
-  const openModalButton = document.querySelector(".login-btn");
+  const openModalButtons = document.querySelectorAll(".login-btn"); // Cambiado a querySelectorAll
   const closeModalButton = document.getElementById("closeModal");
   const togglePassword = document.querySelector(".toggle-password");
   const passwordInput = document.getElementById("password");
@@ -12,45 +12,40 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.style.display = "none";
   }
 
-  // Verificar el estado de login
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
   // Función para actualizar la interfaz según el estado de login
   function updateLoginInterface() {
-    if (openModalButton) {
+    openModalButtons.forEach((button) => {
+      // Actualizar todos los botones
       if (localStorage.getItem("isLoggedIn") === "true") {
-        // Si está logueado, mostrar botón de cerrar sesión
-        openModalButton.querySelector("p b").textContent = "CERRAR SESIÓN";
-        openModalButton.setAttribute("id", "logoutButton");
-        // Asegurarse de que el modal esté oculto
-        if (modal) {
-          modal.style.display = "none";
+        const textElement =
+          button.querySelector("p b") || button.querySelector("span");
+        if (textElement) {
+          textElement.textContent = "CERRAR SESIÓN";
         }
+        button.setAttribute("id", "logoutButton");
       } else {
-        // Si no está logueado, mostrar botón de iniciar sesión
-        openModalButton.querySelector("p b").textContent = "INICIAR SESIÓN";
-        openModalButton.removeAttribute("id");
+        const textElement =
+          button.querySelector("p b") || button.querySelector("span");
+        if (textElement) {
+          textElement.textContent = "INICIAR SESIÓN";
+        }
+        button.removeAttribute("id");
       }
-    }
+    });
   }
 
-  // Llamar a la función de actualización al cargar la página
-  updateLoginInterface();
-
-  // Event listener para el botón de login/logout
-  if (openModalButton) {
-    openModalButton.addEventListener("click", function (event) {
+  // Event listener para los botones de login/logout
+  openModalButtons.forEach((button) => {
+    button.addEventListener("click", function (event) {
       event.preventDefault();
       if (localStorage.getItem("isLoggedIn") !== "true") {
-        // Si no está logueado, mostrar modal de login
         modal.style.display = "flex";
       } else {
-        // Si está logueado, cerrar sesión
         localStorage.removeItem("isLoggedIn");
         updateLoginInterface();
       }
     });
-  }
+  });
 
   // Cerrar el modal
   if (closeModalButton) {
