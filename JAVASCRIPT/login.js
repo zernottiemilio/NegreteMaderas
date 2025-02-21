@@ -63,11 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
   if (togglePassword) {
     togglePassword.addEventListener("click", function () {
       if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        togglePassword.textContent = "👀";
+        passwordInput.type = "text"; // Muestra la contraseña
+        togglePassword.classList.remove("bi-eye-slash"); // Quita el ícono de ojo cerrado
+        togglePassword.classList.add("bi-eye"); // Agrega el ícono de ojo abierto
       } else {
-        passwordInput.type = "password";
-        togglePassword.textContent = "👁️";
+        passwordInput.type = "password"; // Oculta la contraseña
+        togglePassword.classList.remove("bi-eye"); // Quita el ícono de ojo abierto
+        togglePassword.classList.add("bi-eye-slash"); // Agrega el ícono de ojo cerrado
       }
     });
   }
@@ -84,11 +86,9 @@ document.addEventListener("DOMContentLoaded", function () {
     loginForm.addEventListener("submit", function (event) {
       event.preventDefault();
       // Aquí deberías agregar tu lógica de autenticación
-
       // Simular login exitoso
       localStorage.setItem("isLoggedIn", "true");
       modal.style.display = "none";
-
       // Actualizar la interfaz inmediatamente
       updateLoginInterface();
     });

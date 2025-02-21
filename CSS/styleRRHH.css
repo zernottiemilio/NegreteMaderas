@@ -104,97 +104,6 @@ nav ul li a:hover::after {
   z-index: -1;
 }
 
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-.banner-text {
-  position: relative;
-  z-index: 2;
-}
-.content {
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.job-card {
-  background: #ffffff;
-  /* Ajuste si la imagen muestra fondo más claro */
-  width: 80%;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  margin: 30px auto;
-  text-align: center;
-}
-
-.job-card p {
-  font-size: 16px;
-  color: #333;
-  line-height: 1.5;
-  margin-left: 40px;
-}
-
-.cv-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  margin-left: 40px;
-  padding: 12px 25px;
-  font-size: 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  text-transform: uppercase;
-  font-weight: bold;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.cv-button:hover {
-  background: #45a049;
-}
-
-footer {
-  background: linear-gradient(to right, #333333, #4CAF50);
-  color: #fff;
-  padding: 5px 10px;
-  /* Reduce la altura */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-footer .social-links {
-  display: flex;
-  justify-content: flex-start;
-  /* Centrado a la izquierda */
-  align-items: center;
-  gap: 5px;
-}
-
-footer .social-links img {
-  height: 30px;
-  width: 30px;
-}
-
-footer p {
-  font-size: 12px;
-  /* Tamaño más pequeño */
-  text-align: right;
-  /* Alineado a la derecha */
-  margin: 0;
-}
-
-/* CSS for the buttons */
 .nav-buttons {
   position: absolute;
   top: 20px;
@@ -215,23 +124,10 @@ footer p {
   font-weight: 500;
   font-size: 14px;
   transition: background-color 0.3s;
-}
-
-.rrhh-btn {
-  background-color: transparent;
   color: black;
 }
 
-.rrhh-btn:hover {
-  background-color: #4CAF50;
-}
-
-.login-btn {
-  background-color: transparent;
-  color: black;
-}
-
-.login-btn:hover {
+.nav-btn:hover {
   background-color: #4CAF50;
 }
 
@@ -240,58 +136,215 @@ footer p {
   height: 20px;
 }
 
-.trabaja-con-nosotros h3 {
+.main-banner {
   position: relative;
-  /* Necesario para el pseudo-elemento */
-  display: inline-block;
-  /* Ajusta el ancho al contenido del texto */
-  font-size: 40px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  margin-left: 10px;
+  width: 100%;
+  height: calc(100vh - 100px);
+  margin-top: -100px;
+  z-index: 1;
 }
 
-.trabaja-con-nosotros h3::after {
-  content: "";
-  /* Crea el elemento visual */
+.main-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding: 50px 20px;
+}
+
+/* Estilos específicos del formulario */
+.form-container {
+  max-width: 100%;
+  /* Ocupar todo el ancho disponible */
+  width: 90%;
+  /* Ajuste opcional para no llegar a los bordes */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-title {
+  font-size: 40px;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
+  padding-left: 0;
+  text-align: left;
+}
+.form-title::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background-color: #4CAF50;
+  margin-right: 8px;
+  border-radius: 2px;
+}
+
+.form-title::after {
+  content: '';
   position: absolute;
-  bottom: -15px;
-  /* Distancia del degradado respecto al texto */
   left: 0;
-  width: 50%;
-  /* Ancho del degradado */
+  bottom: -15px;
+  width: 100%;
+  /* Hacer que la línea abarque todo */
   height: 15px;
-  /* Grosor del degradado */
   background: linear-gradient(to right, #4CAF50, #fff);
 }
 
-.trabaja-con-nosotros {
-  text-align: left;
-  /* Alinea el texto a la izquierda */
-  margin-left: 20px;
-  /* Asegura que no tenga margen extra */
-  padding-left: 0;
-  /* Si el contenedor tiene padding, lo elimina */
+.form-field {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.trabaja-con-nosotros h3,
-.trabaja-con-nosotros p {
-  margin-left: 0;
-  /* Asegura que ambos elementos comiencen alineados */
-  text-align: left;
-  max-width: 80%;
-  /* Ajusta el ancho del texto para que no se extienda demasiado */
+.form-field label {
+  display: block;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
-.job-card{
-  text-align: left;
-  margin-left: 20px;
-  padding-left: 0;
+.form-field label::after {
+  content: '*';
+  color: #4CAF50;
+  margin-left: 2px;
 }
 
-.job-card .cv-button{
+.form-field input {
+  width: 100%;
+  /* Ocupar todo el espacio disponible */
+  max-width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #666;
+  box-sizing: border-box;
+}
+
+.form-field input::placeholder {
+  color: #999;
+}
+
+/* Estilos para la sección de CV */
+.cv-upload {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
   margin-top: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.cv-upload p:first-child {
+  color: #4CAF50;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
+.file-info {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
 
+.cv-upload-btn {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+}
+
+.cv-upload-btn::before {
+  content: '↑';
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+/* Ajuste del título principal */
+.form-title {
+  font-size: 40px;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.form-title::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  bottom: -15px;
+  width: 50%;
+  height: 15px;
+  background: linear-gradient(to right, #4CAF50, #fff);
+}
+
+/* Estilos para el asterisco verde */
+.required {
+  color: #4CAF50;
+}
+
+footer {
+  background: linear-gradient(to right, #333333, #4CAF50);
+  color: #fff;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-links {
+  display: flex;
+  gap: 5px;
+}
+
+.social-links img {
+  height: 30px;
+  width: 30px;
+}
+
+footer p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.file-display {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#file-name {
+  color: #4CAF50;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.submit-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: none;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background: #45a049;
+}

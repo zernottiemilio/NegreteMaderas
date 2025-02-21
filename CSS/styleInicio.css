@@ -13,7 +13,7 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 100px;
-  padding: 30px 30px;
+  padding: 30px;
   background-image: url('/images/RECTANGULO\ DE\ ARRIBA-12.png');
   background-size: cover;
   background-position: center;
@@ -24,8 +24,6 @@ header {
 
 .logo {
   position: center;
-  top: 0;
-  left: 0;
   padding: 10px;
   z-index: 3;
 }
@@ -90,7 +88,6 @@ nav ul li a:hover::after {
 #inicio {
   position: relative;
   width: 100%;
-  height: auto;
   height: calc(100vh - 100px);
   margin-top: -100px;
   z-index: 1;
@@ -122,8 +119,6 @@ nav ul li a:hover::after {
 .carousel-next {
   right: 20px;
 }
-
-
 
 /* Contenido */
 .content {
@@ -165,7 +160,6 @@ footer {
   background: linear-gradient(to right, #333333, #4CAF50);
   color: #fff;
   padding: 5px 10px;
-  /* Reduce la altura */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -174,22 +168,18 @@ footer {
 footer .social-links {
   display: flex;
   justify-content: flex-start;
-  /* Centrado a la izquierda */
   align-items: center;
   gap: 5px;
 }
 
 footer .social-links img {
   height: 35px;
-  /* Ajusta el tamaño de los íconos */
   width: 35px;
 }
 
 footer p {
   font-size: 12px;
-  /* Tamaño más pequeño */
   text-align: right;
-  /* Alineado a la derecha */
   margin: 0;
 }
 
@@ -249,7 +239,6 @@ footer p {
   background: #f5f5f5;
   padding: 40px 0;
   overflow: hidden;
-
 }
 
 .productos-carousel {
@@ -335,14 +324,6 @@ footer p {
   right: 10px;
 }
 
-/* Estilo para el texto verde sobre la imagen */
-.producto-overlay {
-  background: #4CAF50;
-  padding: 8px 16px;
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
 /* Media queries para responsividad */
 @media (max-width: 768px) {
   .producto-slide {
@@ -378,36 +359,31 @@ footer p {
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  /* Reducido de 300px a 250px */
   gap: 20px;
   padding: 0 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Para asegurar que se muestren 3 columnas en pantallas grandes */
 @media (min-width: 992px) {
   .productos-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Para tablets */
 @media (max-width: 991px) and (min-width: 768px) {
   .productos-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Para móviles */
 @media (max-width: 767px) {
   .productos-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* carrusel marcas */
-
+/* Carrusel marcas */
 .productos-marca {
   margin-top: 40px;
   text-align: center;
@@ -418,7 +394,6 @@ footer p {
   overflow: hidden;
   position: relative;
   margin-top: 20px;
-  /* Add margin-top */
 }
 
 .carousel-containerM {
@@ -435,7 +410,7 @@ footer p {
   margin-top: 10px;
 }
 
-/* CSS for the buttons */
+/* Botones de navegación */
 .nav-buttons {
   position: absolute;
   top: 20px;
@@ -458,20 +433,13 @@ footer p {
   transition: background-color 0.3s;
 }
 
-.rrhh-btn {
-  background-color: transparent;
-  color: black;
-}
-
-.rrhh-btn:hover {
-  background-color: #4CAF50;
-}
-
+.rrhh-btn,
 .login-btn {
   background-color: transparent;
   color: black;
 }
 
+.rrhh-btn:hover,
 .login-btn:hover {
   background-color: #4CAF50;
 }
@@ -480,4 +448,199 @@ footer p {
   width: 20px;
   height: 20px;
 }
+
+/* Menú móvil */
+.menu-toggle,
+.close-menu {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 15px;
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    z-index: 1001;
+  }
+
+  nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    margin: 0;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  nav.active {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+  }
+
+  nav ul li {
+    margin: 15px 0;
+  }
+
+  nav ul li a {
+    font-size: 1.2em;
+    padding: 15px;
+  }
+
+  .close-menu {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  nav.active .close-menu {
+    display: block;
+  }
+
+  .nav-buttons {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    z-index: 1001;
+  }
+
+  .nav-btn {
+    background-color: transparent;
+    padding: 8px 12px;
+  }
+
+  .nav-btn img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-btn p {
+    font-size: 12px;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu-toggle {
+    top: 60px;
+  }
+
+  .nav-buttons {
+    right: 15px;
+    gap: 10px;
+  }
+
+  .servicios-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .servicio-item {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 30px;
+  }
+
+  .servicio-imagen {
+    width: 200px;
+    height: 200px;
+  }
+
+  #inicio {
+    height: 50vh;
+    margin-top: 0;
+  }
+
+  .carousel-container img {
+    height: 50vh;
+  }
+
+  .productos-track {
+    padding: 0 10px;
+  }
+
+  .producto-slide {
+    min-width: 200px;
+    height: 140px;
+  }
+
+  .producto-overlay h3 {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .carousel-containerM img {
+    max-width: 150px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo img {
+    height: 60px;
+  }
+
+  .menu-toggle {
+    top: 50px;
+  }
+
+  .servicio-imagen {
+    width: 150px;
+    height: 150px;
+  }
+
+  .producto-slide {
+    min-width: 160px;
+    height: 120px;
+  }
+
+  .carousel-containerM img {
+    max-width: 120px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  footer .social-links {
+    justify-content: center;
+  }
+
+  footer p {
+    text-align: center;
+  }
+}
+
 

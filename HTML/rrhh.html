@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,23 +8,22 @@
   <link rel="icon" type="image/x-icon" href="/images/FAVICON_Mesa de trabajo 1.png">
   <link rel="stylesheet" href="/CSS/styleRRHH.css">
 </head>
+
 <body>
   <header>
-    <div class="logo-nav">
-      <div class="logo">
-        <a href="/HTML/indexInicio.html">
-          <img src="/images/NEGRETE Logo-02.png" alt="Negrete Maderas Logo">
-        </a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="/HTML/indexInicio.html">INICIO</a></li>
-          <li><a href="/HTML/catalogo.html">CATÁLOGO</a></li>
-          <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
-          <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
-        </ul>
-      </nav>
+    <div class="logo">
+      <a href="/HTML/indexInicio.html">
+        <img src="/images/NEGRETE Logo-02.png" alt="Negrete Maderas Logo">
+      </a>
     </div>
+    <nav>
+      <ul>
+        <li><a href="/HTML/indexInicio.html">INICIO</a></li>
+        <li><a href="/HTML/catalogo.html">CATÁLOGO</a></li>
+        <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
+        <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
+      </ul>
+    </nav>
     <div class="nav-buttons">
       <a href="/HTML/rrhh.html" class="nav-btn rrhh-btn">
         <img src="/images/ICONOS INICIO-13.png" alt="RRHH icon">
@@ -31,36 +31,88 @@
       </a>
       <a href="/HTML/login.html" class="nav-btn login-btn">
         <img src="/images/ICONOS INICIO-14.png" alt="Login icon">
-        <b>INICIAR SESION</b>
+        <b>INICIAR SESIÓN</b>
       </a>
     </div>
   </header>
+
   <div class="main-banner">
     <img src="/images/FOTOS CON CURVA-16.png" alt="Banner">
   </div>
+
   <main class="content">
-      <div class="trabaja-con-nosotros">
-        <h3 class="content-title">¿QUERÉS TRABAJAR CON NOSOTROS?</h3>
-        <p class="placeholder-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor   sit
-        amet lacus.
-        </p>
+    <form class="form-container">
+      <h1 class="form-title">¿QUERES TRABAJAR EN NEGRETE MADERAS?</h1>
+
+      <div class="form-field">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="Tu dirección de correo electrónico" required>
       </div>
-    <div class="job-card">
-      <p>Si aún no sos parte de nuestro equipo pero estás interesado en unirte, te invitamos a llenar el siguiente
-        formulario. <strong>¡Esperamos tu respuesta!</strong></p>
-      <button class="cv-button">ENVIAR CV</button>
-    </div>
+
+      <div class="form-field">
+        <label for="name">Nombre completo</label>
+        <input type="text" id="name" placeholder="Tu respuesta" required>
+      </div>
+
+      <div class="form-field">
+        <label for="age">Edad</label>
+        <input type="number" id="age" placeholder="Tu respuesta" required>
+      </div>
+
+      <div class="form-field">
+        <label for="education">Último estudio finalizado</label>
+        <input type="text" id="education" placeholder="Tu respuesta" required>
+      </div>
+
+      <div class="form-field">
+        <label for="city">Ciudad de residencia</label>
+        <input type="text" id="city" placeholder="Tu respuesta" required>
+      </div>
+      <div class="form-field">
+        <label for="phone">Teléfono de contacto</label>
+        <input type="tel" id="phone" placeholder="Tu respuesta" required>
+      </div>
+      <div class="cv-upload">
+        <p>Adjunta tu CV</p>
+        <p class="file-info">Archivo en PDF</p>
+        <input type="file" id="cv-file" name="cv-file" accept=".pdf" style="display: none;" required>
+        <button type="button" class="cv-upload-btn" onclick="document.getElementById('cv-file').click()">
+          Agregar archivo
+        </button>
+        <div class="file-display">
+          <span id="file-name"></span>
+          <button type="submit" id="submit-btn" class="submit-btn" style="display: none;">Enviar</button>
+        </div>
+      </div>
+    </form>
   </main>
   <footer>
     <div class="social-links">
       <a href="https://www.instagram.com/negrete.maderas?igsh=aXJhZGxva3V0dGsw" target="_blank">
-        <img src="/images/ICONOS CONTACTOS-12.png" alt="Instagram"></a>
+        <img src="/images/ICONOS CONTACTOS-12.png" alt="Instagram">
+      </a>
       <a href="#"><img src="/images/ICONOS CONTACTOS-13.png" alt="Facebook"></a>
       <a href="#"><img src="/images/ICONOS CONTACTOS-14.png" alt="Telefono"></a>
       <a href="#"><img src="/images/ICONOS CONTACTOS-15.png" alt="Mail"></a>
     </div>
     <p>&copy; 2025 NEGRETE MADERAS. Todos los derechos reservados.</p>
   </footer>
+  <script>
+    document.getElementById('cv-file').addEventListener('change', function () {
+        const fileName = this.files[0]?.name;
+        const fileNameElement = document.getElementById('file-name');
+        const submitBtn = document.getElementById('submit-btn');
+
+        if (fileName) {
+          fileNameElement.textContent = fileName;
+          submitBtn.style.display = 'block';
+          document.querySelector('.cv-upload-btn').textContent = 'Cambiar archivo';
+        } else {
+          fileNameElement.textContent = '';
+          submitBtn.style.display = 'none';
+          document.querySelector('.cv-upload-btn').textContent = 'Agregar archivo';
+        }
+      });
+  </script>
 </body>
 </html>

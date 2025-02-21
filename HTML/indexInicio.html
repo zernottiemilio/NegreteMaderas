@@ -1,20 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maderas Negrete</title>
   <link rel="icon" type="image/x-icon" href="/images/FAVICON_Mesa de trabajo 1.png">
+  <!-- Primero cargar los estilos base -->
   <link rel="stylesheet" href="/CSS/styleInicio.css">
+  <link rel="stylesheet" href="/CSS/sidebar.css">
+  <!-- Luego los estilos específicos -->
   <link rel="stylesheet" href="/CSS/carruselstyle.css">
-  <script src="/JAVASCRIPT/carrusel.js" defer></script>
   <link rel="stylesheet" href="/CSS/carruselMarcas.css">
   <link rel="stylesheet" href="/CSS/login.css">
+  <!-- Scripts con defer para asegurar la carga correcta -->
+  <script src="/JAVASCRIPT/responsive.js" defer></script>
+  <script src="/JAVASCRIPT/carrusel.js" defer></script>
   <script src="/JAVASCRIPT/carruselMarcas.js" defer></script>
-  <script src="/JAVASCRIPT/login.js"></script>
-  <script src="/JAVASCRIPT/carruselProductos.js"></script>
+  <script src="/JAVASCRIPT/carruselProductos.js" defer></script>
+  <script src="/JAVASCRIPT/login.js" defer></script>
 </head>
+
 <body>
+  <!-- Botón hamburguesa -->
+  <div class="hamburger-menu">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <a href="#inicio">
+          <img src="/images/NEGRETE Logo-02.png" alt="Negrete Logo">
+        </a>
+      </div>
+      <button class="close-sidebar">×</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="#inicio">
+            <span>INICIO</span>
+          </a></li>
+        <li><a href="/HTML/catalogo.html">
+            <span>CATALOGO</span>
+          </a></li>
+        <li><a href="/HTML/contactos.html">
+            <span>CONTACTOS</span>
+          </a></li>
+        <li><a href="/HTML/sobreNosotros.html">
+            <span>SOBRE NOSOTROS</span>
+          </a></li>
+        <li><a href="/HTML/rrhh.html" class="nav-btn rrhh-btn">
+            <img src="/images/ICONOS INICIO-13.png" alt="RRHH icon">
+            <span>RRHH</span>
+          </a></li>
+        <li><a href="/HTML/indexInicio.html" class="nav-btn login-btn">
+            <img src="/images/ICONOS INICIO-14.png" alt="Login icon">
+            <span>INICIAR SESIÓN</span>
+          </a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Overlay -->
+  <div class="sidebar-overlay"></div>
+
   <!-- Encabezado -->
   <header>
     <div class="logo">
@@ -42,6 +96,7 @@
       </a>
     </div>
   </header>
+
   <!-- Sección de Inicio -->
   <section id="inicio" class="carousel">
     <div class="carousel-container">
@@ -60,17 +115,20 @@
         </div>
         <h3 class="servicio-titulo">Logística</h3>
         <p class="servicio-descripcion">
-          Ofrecemos servicios logísticos completos con una planificación detallada de la cadena de distribución. Monitoreamos continuamente los envíos con sistemas GPS en tiempo real para asegurar entregas puntuales y seguras.
+          Ofrecemos servicios logísticos completos con una planificación detallada de la cadena de distribución.
+          Monitoreamos continuamente los envíos con sistemas GPS en tiempo real para asegurar entregas puntuales y
+          seguras.
         </p>
       </div>
 
       <div class="servicio-item">
         <div class="servicio-imagen">
-          <img src="/images/FOTOS CIRCULO INICIO-16.png" alt="Venta Telefónica">
+          <img src="/images/FOTO INICIO VENTA TELEFONICA-25.png" alt="Venta Telefónica">
         </div>
         <h3 class="servicio-titulo">Venta Telefónica</h3>
         <p class="servicio-descripcion">
-          Nuestro Servicio de Venta Telefónica permite al cliente comprar ágilmente desde donde esté, recibiendo atención rápida y personalizada. Atendemos consultas de forma simple, eficiente y profesional.
+          Nuestro Servicio de Venta Telefónica permite al cliente comprar ágilmente desde donde esté, recibiendo
+          atención rápida y personalizada. Atendemos consultas de forma simple, eficiente y profesional.
         </p>
       </div>
 
@@ -80,22 +138,26 @@
         </div>
         <h3 class="servicio-titulo">Cortes de Tableros</h3>
         <p class="servicio-descripcion">
-          Ofrecemos un servicio de corte de madera preciso y personalizado a tus necesidades. Contamos con equipos especializados que garantizan cortes perfectos y acabados de alta calidad.
+          Ofrecemos un servicio de corte de madera preciso y personalizado a tus necesidades. Contamos con equipos
+          especializados que garantizan cortes perfectos y acabados de alta calidad.
         </p>
       </div>
     </div>
   </section>
+
   <section class="productos-section">
     <div class="productos-carousel">
       <div class="productos-track">
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 1- adhesivos y selladores.jpg" alt="adhesivos y selladores"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 1- adhesivos y selladores.jpg"
+              alt="adhesivos y selladores"></a>
           <div class="producto-overlay">
             <h3>ADHESIVOS Y SELLADORES</h3>
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 2 - lacas -barnices - selladores - tintas - masillas.jpg" alt="Lacas barnices"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 2 - lacas -barnices - selladores - tintas - masillas.jpg"
+              alt="Lacas barnices"></a>
           <div class="producto-overlay">
             <h3>Lacas y barnices</h3>
           </div>
@@ -143,19 +205,22 @@
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 10 - herrajes para muebles.jpg" alt="herrajes para muebles"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 10 - herrajes para muebles.jpg"
+              alt="herrajes para muebles"></a>
           <div class="producto-overlay">
             <h3>Herrajes para muebles</h3>
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 11- molduras - revestimientos.jpg" alt="molduras - revestimientos"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 11- molduras - revestimientos.jpg"
+              alt="molduras - revestimientos"></a>
           <div class="producto-overlay">
             <h3>MOLDURAS - REVESTIMIENTOS</h3>
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 12- placas -masillas - construccion en seco.jpg" alt="placas-masillas-construccionenseco"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 12- placas -masillas - construccion en seco.jpg"
+              alt="placas-masillas-construccionenseco"></a>
           <div class="producto-overlay">
             <h3>PLACAS - MASILLAS - CONSTRUCCION EN SECO</h3>
           </div>
@@ -168,7 +233,8 @@
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 14 - accesorios const. en seco-05.jpg" alt="acc costruccion en seco"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 14 - accesorios const. en seco-05.jpg"
+              alt="acc costruccion en seco"></a>
           <div class="producto-overlay">
             <h3>ACCESORIOS CONSTRUCCION EN SECO</h3>
           </div>
@@ -186,7 +252,8 @@
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 17 - pisos - mantas - terminaciones-06.jpg" alt="pisosMantasTerminaciones"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 17 - pisos - mantas - terminaciones-06.jpg"
+              alt="pisosMantasTerminaciones"></a>
           <div class="producto-overlay">
             <h3>PISOS - MANTAS</h3>
           </div>
@@ -198,19 +265,22 @@
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 19 - accesorios para techos-03.jpg" alt="accParaTechos"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 19 - accesorios para techos-03.jpg"
+              alt="accParaTechos"></a>
           <div class="producto-overlay">
             <h3>ACCESORIOS PARA TECHOS</h3>
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 20 - maderas remanufacturadas-03.jpg" alt="maderas remanufacturadas"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 20 - maderas remanufacturadas-03.jpg"
+              alt="maderas remanufacturadas"></a>
           <div class="producto-overlay">
             <h3>MADERAS REMANUFACTURADAS</h3>
           </div>
         </div>
         <div class="producto-slide">
-          <a href="/HTML/catalogo.html"><img src="/images/CAP 21 - maderas rusticas y cepilladas-06.jpg" alt="maderas rusticas y cepilladas"></a>
+          <a href="/HTML/catalogo.html"><img src="/images/CAP 21 - maderas rusticas y cepilladas-06.jpg"
+              alt="maderas rusticas y cepilladas"></a>
           <div class="producto-overlay">
             <h3>MADERAS RUSTICAS Y CEPILLADAS</h3>
           </div>
@@ -246,8 +316,9 @@
   <footer>
     <div class="social-links">
       <a href="https://www.instagram.com/negrete.maderas?igsh=aXJhZGxva3V0dGsw" target="_blank">
-      <img src="/images/ICONOS CONTACTOS-12.png" alt="Instagram"></a>
-      <a href="https://www.facebook.com/share/1UaV8zKZzH/?mibextid=wwXIfr"><img src="/images/ICONOS CONTACTOS-13.png" alt="Facebook"></a>
+        <img src="/images/ICONOS CONTACTOS-12.png" alt="Instagram"></a>
+      <a href="https://www.facebook.com/share/1UaV8zKZzH/?mibextid=wwXIfr"><img src="/images/ICONOS CONTACTOS-13.png"
+          alt="Facebook"></a>
       <a href="#"><img src="/images/ICONOS CONTACTOS-14.png" alt="Telefono"></a>
       <a href="#"><img src="/images/ICONOS CONTACTOS-15.png" alt="Mail"></a>
     </div>
@@ -277,7 +348,7 @@
         <div class="input-container password-container">
           <label for="password">Contraseña:</label>
           <input type="password" id="password" name="password" required>
-          <i class="toggle-password">👁️</i> <!-- Emoji inicial: ojo cerrado -->
+          <i class="toggle-password"></i> <!-- Emoji inicial: ojo cerrado -->
         </div>
 
         <!-- Botón de inicio de sesión -->
