@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,47 @@
   <link rel="icon" type="image/x-icon" href="/images/FAVICON_Mesa de trabajo 1.png">
   <link rel="stylesheet" href="/css/styleSobreNosotros.css">
   <link rel="stylesheet" href="/CSS/login.css">
-  <script src="/JAVASCRIPT/login.js"></script>
+  <link rel="stylesheet" href="/CSS/sidebar.css">
+  <script src="/JAVASCRIPT/login.js" defer></script>
+  <script src="/JAVASCRIPT/responsive.js" defer></script>
 </head>
+
 <body>
+  <div class="hamburger-menu">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <a href="#inicio">
+          <img src="/images/NEGRETE Logo-02.png" alt="Negrete Logo">
+        </a>
+      </div>
+      <button class="close-sidebar">×</button>
+    </div>
+
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="#inicio">INICIO</a></li>
+        <li><a href="/HTML/catalogo.html">CATALOGO</a></li>
+        <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
+        <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
+        <li><a href="/HTML/rrhh.html">
+            <img src="/images/ICONOS INICIO-13.png" alt="RRHH icon">
+            <span>RRHH</span>
+          </a></li>
+        <li><a href="/HTML/sobreNosotros.html" class="nav-btn login-btn">
+          <img src="/images/ICONOS INICIO-14.png" alt="Login icon">
+          <span>INICIAR SESION</span>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay"></div>
   <!-- Encabezado -->
   <header>
     <div class="logo-nav">
@@ -46,8 +85,9 @@
     <div class="container">
       <ul class="timeline">
         <li>
-          <div class="timeline-image"><img class="rounded-circle img-fluid"
-              src="/images/FOTOS CIRCULO INICIO-15.png" alt="..." /></div>
+          <div class="timeline-image">
+            <img class="rounded-circle img-fluid" src="/images/FOTOS CIRCULO INICIO-15.png" alt="Sobre Nosotros" />
+          </div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4>SOBRE NOSOTROS</h4>
@@ -68,25 +108,28 @@
           </div>
         </li>
         <li class="timeline-inverted">
-          <div class="timeline-image"><img class="rounded-circle img-fluid"
-              src="/images/FOTOS CIRCULO INICIO-16.png" alt="..." /></div>
+          <div class="timeline-image">
+            <img class="rounded-circle img-fluid" src="/images/FOTOS CIRCULO SOBRE NOSOTROS-19.png" alt="Visión" />
+          </div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4>VISION</h4>
             </div>
             <div class="timeline-body">
-              <p class="text-muted"></p>
-              Nuestra visión es ser la empresa referente en el suministro de productos para la industria del mueble,
-              techos de madera y construcción en seco, contribuyendo de manera sostenible a materializar sus sueños y
-              proyectos. Aspiramos a ser una compañía valorada y respetada, tanto por nuestros clientes como por
-              nuestros colaboradores y proveedores, destacándonos por la confianza y compromiso que generamos en cada
-              uno de ellos.
+              <p class="text-muted">
+                Nuestra visión es ser la empresa referente en el suministro de productos para la industria del mueble,
+                techos de madera y construcción en seco, contribuyendo de manera sostenible a materializar sus sueños y
+                proyectos. Aspiramos a ser una compañía valorada y respetada, tanto por nuestros clientes como por
+                nuestros colaboradores y proveedores, destacándonos por la confianza y compromiso que generamos en cada
+                uno de ellos.
+              </p>
             </div>
           </div>
         </li>
         <li>
-          <div class="timeline-image"><img class="rounded-circle img-fluid" src="/images/FOTOS CIRCULO INICIO-17.png"
-              alt="..." /></div>
+          <div class="timeline-image">
+            <img class="rounded-circle img-fluid" src="/images/FOTOS CIRCULO INICIO-17.png" alt="Misión" />
+          </div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4>MISION</h4>
@@ -100,7 +143,8 @@
           </div>
         </li>
         <li class="timeline-inverted">
-          <div class="timeline-image"><img class="rounded-circle img-fluid" src="/images/FOTOS CIRCULO SOBRE NOSOTROS-18.png" alt="..." />
+          <div class="timeline-image">
+            <img class="rounded-circle img-fluid" src="/images/FOTOS CIRCULO SOBRE NOSOTROS-18.png" alt="Valores" />
           </div>
           <div class="timeline-panel">
             <div class="timeline-heading">
@@ -189,24 +233,15 @@
 
       <!-- Título -->
       <h2>Iniciar Sesión</h2>
-
       <!-- Formulario -->
-      <form>
+      <form onsubmit="event.preventDefault(); login();">
         <!-- Campo de usuario -->
         <div class="input-container">
-          <label for="username">Usuario:</label>
-          <input type="text" id="username" name="username" required>
+          <input type="email" id="email" placeholder="Correo electrónico" required>
+          <input type="password" id="password" placeholder="Contraseña" required>
+          <button type="submit">Iniciar Sesión</button>
         </div>
-
-        <!-- Campo de contraseña -->
-        <div class="input-container password-container">
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" name="password" required>
-          <i class="toggle-password"></i> <!-- Emoji inicial: ojo cerrado -->
-        </div>
-
-        <!-- Botón de inicio de sesión -->
-        <button type="submit" class="btn-green">Entrar</button>
+        <button id="logout-btn" onclick="logout()" style="display:none;">Cerrar Sesión</button>
       </form>
 
       <!-- Enlace de contraseña olvidada -->
@@ -214,4 +249,5 @@
     </div>
   </div>
 </body>
+
 </html>

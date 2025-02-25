@@ -7,9 +7,48 @@
   <title>Maderas Negrete</title>
   <link rel="icon" type="image/x-icon" href="/images/FAVICON_Mesa de trabajo 1.png">
   <link rel="stylesheet" href="/CSS/styleRRHH.css">
+  <link rel="stylesheet" href="/CSS/sidebar.css">
+  <script src="/JAVASCRIPT/responsive.js"></script>
+  <script src="/JAVASCRIPT/login.js"></script>
+  <link rel="stylesheet" href="/CSS/login.css">
 </head>
-
 <body>
+  <div class="hamburger-menu">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <a href="#inicio">
+          <img src="/images/NEGRETE Logo-02.png" alt="Negrete Logo">
+        </a>
+      </div>
+      <button class="close-sidebar">×</button>
+    </div>
+
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="#inicio">INICIO</a></li>
+        <li><a href="/HTML/catalogo.html">CATALOGO</a></li>
+        <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
+        <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
+        <li><a href="/HTML/rrhh.html">
+            <img src="/images/ICONOS INICIO-13.png" alt="RRHH icon">
+            <span>RRHH</span>
+          </a></li>
+        <li><a href="/HTML/sobreNosotros.html" class="nav-btn login-btn">
+            <img src="/images/ICONOS INICIO-14.png" alt="Login icon">
+            <span>INICIAR SESION</span>
+          </a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay"></div>
+
   <header>
     <div class="logo">
       <a href="/HTML/indexInicio.html">
@@ -97,6 +136,31 @@
     </div>
     <p>&copy; 2025 NEGRETE MADERAS. Todos los derechos reservados.</p>
   </footer>
+  <!-- Modal de Inicio de Sesión -->
+  <div id="modalOverlay" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <!-- Botón de cierre -->
+      <button id="closeModal" class="close">×</button>
+
+      <!-- Imagen de inicio de sesión -->
+      <img src="/images/ICONOS INICIO-14.png" alt="Logo de inicio de sesión" class="logo-login">
+
+      <!-- Título -->
+      <h2>Iniciar Sesión</h2>
+      <!-- Formulario -->
+      <form onsubmit="event.preventDefault(); login();">
+        <!-- Campo de usuario -->
+        <div class="input-container">
+          <input type="email" id="email" placeholder="Correo electrónico" required>
+          <input type="password" id="password" placeholder="Contraseña" required>
+          <button type="submit">Iniciar Sesión</button>
+        </div>
+        <button id="logout-btn" onclick="logout()" style="display:none;">Cerrar Sesión</button>
+      </form>
+      <!-- Enlace de contraseña olvidada -->
+      <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+    </div>
+  </div>
   <script>
     document.getElementById('cv-file').addEventListener('change', function () {
         const fileName = this.files[0]?.name;

@@ -22,14 +22,13 @@
 </head>
 
 <body>
-  <!-- Botón hamburguesa -->
+  <!-- Estructura HTML del sidebar -->
   <div class="hamburger-menu">
     <div class="bar"></div>
     <div class="bar"></div>
     <div class="bar"></div>
   </div>
 
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">
@@ -40,33 +39,24 @@
       <button class="close-sidebar">×</button>
     </div>
 
-    <nav class="sidebar-nav">
+    <div class="sidebar-nav">
       <ul>
-        <li><a href="#inicio">
-            <span>INICIO</span>
-          </a></li>
-        <li><a href="/HTML/catalogo.html">
-            <span>CATALOGO</span>
-          </a></li>
-        <li><a href="/HTML/contactos.html">
-            <span>CONTACTOS</span>
-          </a></li>
-        <li><a href="/HTML/sobreNosotros.html">
-            <span>SOBRE NOSOTROS</span>
-          </a></li>
-        <li><a href="/HTML/rrhh.html" class="nav-btn rrhh-btn">
+        <li><a href="#inicio">INICIO</a></li>
+        <li><a href="/HTML/catalogo.html">CATALOGO</a></li>
+        <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
+        <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
+        <li><a href="/HTML/rrhh.html">
             <img src="/images/ICONOS INICIO-13.png" alt="RRHH icon">
             <span>RRHH</span>
           </a></li>
-        <li><a href="/HTML/indexInicio.html" class="nav-btn login-btn">
+        <li><a href="/HTML/sobreNosotros.html" class="nav-btn login-btn">
             <img src="/images/ICONOS INICIO-14.png" alt="Login icon">
-            <span>INICIAR SESIÓN</span>
+            <span>INICIAR SESION</span>
           </a></li>
       </ul>
-    </nav>
+    </div>
   </div>
 
-  <!-- Overlay -->
   <div class="sidebar-overlay"></div>
 
   <!-- Encabezado -->
@@ -329,26 +319,16 @@
 
       <!-- Título -->
       <h2>Iniciar Sesión</h2>
-
       <!-- Formulario -->
-      <form>
+      <form onsubmit="event.preventDefault(); login();">
         <!-- Campo de usuario -->
         <div class="input-container">
-          <label for="username">Usuario:</label>
-          <input type="text" id="username" name="username" required>
+          <input type="email" id="email" placeholder="Correo electrónico" required>
+          <input type="password" id="password" placeholder="Contraseña" required>
+          <button type="submit">Iniciar Sesión</button>
         </div>
-
-        <!-- Campo de contraseña -->
-        <div class="input-container password-container">
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" name="password" required>
-          <i class="toggle-password"></i> <!-- Emoji inicial: ojo cerrado -->
-        </div>
-
-        <!-- Botón de inicio de sesión -->
-        <button type="submit" class="btn-green">Entrar</button>
+        <button id="logout-btn" onclick="logout()" style="display:none;">Cerrar Sesión</button>
       </form>
-
       <!-- Enlace de contraseña olvidada -->
       <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
     </div>

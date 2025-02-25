@@ -186,20 +186,16 @@ nav ul li a:hover::after {
   background: #fff;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  text-align: justify;
   z-index: 2;
   display: flex;
   flex-direction: column;
 }
 
-/* ✅ Estilos de los círculos con imágenes (agrandados 2.5 veces) */
+/* ✅ Estilos de los círculos con imágenes (agrandados) */
 .timeline-image {
   width: 250px;
-  /* 120px * 2.5 */
   height: 250px;
-  /* 120px * 2.5 */
   border: 5px solid #008000;
-  /* 7px * 2.5 */
   border-radius: 50%;
   background-color: white;
   position: absolute;
@@ -208,6 +204,8 @@ nav ul li a:hover::after {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  /* Asegurar que la proporción se mantenga */
+  aspect-ratio: 1 / 1;
 }
 
 /* Ajustar imagen para que ocupe todo el espacio del círculo */
@@ -232,24 +230,24 @@ nav ul li a:hover::after {
 }
 
 .timeline li:nth-child(odd) .timeline-panel {
-  text-align: right;
+  text-align: center;
+  /* Cambiado a center */
   margin-right: 60px;
 }
 
 .timeline li:nth-child(even) .timeline-panel {
-  text-align: left;
+  text-align: center;
+  /* Cambiado a center */
   margin-left: 60px;
 }
 
 /* ✅ Posicionamiento de los círculos en la línea del tiempo */
 .timeline li:nth-child(odd) .timeline-image {
   left: calc(43% - 150px);
-  /* 85px * 2.5 */
 }
 
 .timeline li:nth-child(even) .timeline-image {
   left: calc(36% + 150px);
-  /* 85px * 2.5 */
 }
 
 /* ✅ Ajuste de márgenes en los textos */
@@ -274,6 +272,101 @@ nav ul li a:hover::after {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+/* ✅ Estilos para los títulos */
+h2 {
+  color: #008000;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h4 {
+  color: #008000;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* ✅ Estilos para los párrafos */
+.timeline-body p {
+  color: black;
+  font-size: 1rem;
+  text-align: center;
+  /* Cambiado a center */
+  line-height: 1.5;
+}
+
+/* 📌 RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .timeline:before {
+    left: 50%;
+  }
+
+  .timeline li {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timeline li:nth-child(odd),
+  .timeline li:nth-child(even) {
+    flex-direction: column;
+  }
+
+  .timeline-panel {
+    width: 80%;
+    text-align: center;
+    margin: 0 0 20px 0 !important;
+  }
+
+  .timeline-image {
+    position: relative;
+    left: 0 !important;
+    /* Anular posicionamiento left para ambos tipos */
+    margin-bottom: 20px;
+    width: 200px;
+    /* Reducir tamaño pero mantener proporción */
+    height: 200px;
+    aspect-ratio: 1 / 1;
+    /* Mantener proporción */
+  }
+
+  .timeline li:nth-child(odd) .timeline-panel,
+  .timeline li:nth-child(even) .timeline-panel {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline li {
+    margin-bottom: 30px;
+  }
+
+  .timeline-image {
+    width: 150px;
+    /* Tamaño reducido pero manteniendo proporción */
+    height: 150px;
+    aspect-ratio: 1 / 1;
+    /* Asegurar que siga siendo un círculo */
+  }
+
+  .timeline-panel {
+    width: 90%;
+  }
+
+  .timeline-body p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-image {
+    width: 120px;
+    /* Aún más pequeño para móviles */
+    height: 120px;
+  }
 }
 
 /* ✅ Estilos para los títulos */
@@ -339,6 +432,14 @@ h4 {
   font-size: 2rem;
   margin-bottom: 40px;
   font-weight: bold;
+  text-align: center;
+}
+
+/* Estilo para la imagen del equipo */
+.imagen-equipo {
+  margin-bottom: 30px;
+  max-width: 100%;
+  height: auto;
 }
 
 /* ✅ Contenedor general para los miembros del equipo */
@@ -358,6 +459,7 @@ h4 {
   /* Fondo blanco por defecto */
   padding: 20px;
   text-align: center;
+  /* Centrar todo el contenido */
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   /* Transiciones suaves */
   border-radius: 5px;
@@ -387,6 +489,8 @@ h4 {
   /* Hace que las imágenes sean circulares */
   margin-bottom: 15px;
   /* Espacio entre la imagen y el texto */
+  aspect-ratio: 1 / 1;
+  /* Asegurar proporción 1:1 */
 }
 
 /* ✅ Estilo para los títulos */
@@ -397,6 +501,8 @@ h4 {
   /* Espacio entre el título y el párrafo */
   transition: color 0.3s ease;
   /* Transición suave para el cambio de color */
+  text-align: center;
+  /* Asegurar que el título esté centrado */
 }
 
 /* ✅ Estilo para los párrafos */
@@ -406,6 +512,8 @@ h4 {
   line-height: 1.5;
   transition: color 0.3s ease;
   /* Transición suave para el cambio de color */
+  text-align: center;
+  /* Centrar párrafos */
 }
 
 /* ✅ Cambios de color para el título y párrafo dentro del hover del contenedor */
@@ -425,6 +533,11 @@ h4 {
     grid-template-columns: repeat(2, 1fr);
     /* 2 por fila en pantallas medianas */
   }
+
+  .miembro {
+    text-align: center;
+    /* Mantener centrado en pantallas medianas */
+  }
 }
 
 @media (max-width: 768px) {
@@ -432,25 +545,12 @@ h4 {
     grid-template-columns: 1fr;
     /* 1 por fila en pantallas pequeñas */
   }
-}
 
-h2 {
-  color: #008000;
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-h4 {
-  color: #008000;
-  font-size: 1.2rem;
-  margin-top: 10px;
-}
-
-p {
-  color: black;
-  font-size: 1rem;
-  text-align: justify;
+  .miembro p,
+  .miembro h4 {
+    text-align: center;
+    /* Reforzar alineación centrada en móviles */
+  }
 }
 
 /* Footer */
