@@ -34,6 +34,72 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Crear el menú desplegable para la cuenta
+  const createAccountMenu = () => {
+    // Verificar si ya existe para no crear duplicados
+    if (document.getElementById("account-dropdown")) return;
+
+    const accountMenu = document.createElement("div");
+    accountMenu.className = "account-dropdown";
+    accountMenu.id = "account-dropdown";
+
+    const logoutOption = document.createElement("a");
+    logoutOption.href = "#";
+    logoutOption.className = "logout-option";
+    logoutOption.innerHTML = "Cerrar Sesión";
+
+    logoutOption.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (window.logout) {
+        window.logout();
+      }
+      hideAccountMenu();
+    });
+
+    accountMenu.appendChild(logoutOption);
+    document.body.appendChild(accountMenu);
+
+    return accountMenu;
+  };
+
+  // Mostrar el menú desplegable
+  const showAccountMenu = (button) => {
+    const menu = createAccountMenu();
+
+    const buttonRect = button.getBoundingClientRect();
+    const menuTop = buttonRect.bottom + window.scrollY;
+    const menuLeft = buttonRect.left + window.scrollX;
+
+    menu.style.position = "absolute";
+    menu.style.top = menuTop + "px";
+    menu.style.left = menuLeft + "px";
+    menu.style.display = "block";
+  };
+
+  // Ocultar el menú desplegable
+  const hideAccountMenu = () => {
+    const menu = document.getElementById("account-dropdown");
+    if (menu) {
+      menu.style.display = "none";
+    }
+  };
+
+  // Cerrar el menú si se hace clic fuera de él
+  document.addEventListener("click", function (e) {
+    const menu = document.getElementById("account-dropdown");
+    const loginButtons = Array.from(document.querySelectorAll(".login-btn"));
+
+    if (
+      menu &&
+      menu.style.display === "block" &&
+      !menu.contains(e.target) &&
+      !loginButtons.some((btn) => btn.contains(e.target))
+    ) {
+      hideAccountMenu();
+    }
+  });
+
   function showNotification(message, type = "error") {
     const notification = document.getElementById("notification");
     const messageElement = document.getElementById("notification-message");
@@ -89,12 +155,17 @@ document.addEventListener("DOMContentLoaded", function () {
         button.setAttribute("data-status", "logged-out");
       }
     });
-
-    const logoutBtn = document.getElementById("logout-btn");
-    if (logoutBtn) logoutBtn.style.display = isLoggedIn ? "block" : "none";
   }
 
   window.updateLoginInterface = updateLoginInterface;
+
+  // CAMBIO: Mostramos inicialmente la interfaz según lo que indica localStorage
+  // pero marcamos esta información como potencialmente desactualizada
+  const initialLoggedInState = localStorage.getItem("isLoggedIn") === "true";
+  updateLoginInterface(initialLoggedInState);
+
+  // CAMBIO: Agregamos una bandera para saber si Firebase ya verificó el estado real
+  let firebaseVerified = false;
 
   if (closeModalButton) {
     closeModalButton.addEventListener("click", function () {
@@ -119,9 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
       hideNotification(); // Ocultar notificación al cerrar el modal
     }
   });
-
-  // Inicialmente mostramos "INICIAR SESION" hasta que Firebase verifique
-  updateLoginInterface(false);
 
   const firebaseScript = document.createElement("script");
   firebaseScript.type = "module";
@@ -277,9 +345,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
+    // CAMBIO: Marcamos cuando Firebase ya verificó el estado
     onAuthStateChanged(auth, (user) => {
       const isLoggedIn = user !== null;
+      window.firebaseVerified = true;
       window.authInitialized = true;
+
       if (isLoggedIn) {
         localStorage.setItem("isLoggedIn", "true");
         console.log("Usuario autenticado:", user.email);
@@ -287,6 +358,8 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("isLoggedIn");
         console.log("No hay usuario autenticado");
       }
+
+      // Actualizamos la interfaz con el estado real verificado por Firebase
       updateLoginInterface(isLoggedIn);
     });
 
@@ -298,24 +371,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.body.appendChild(firebaseScript);
 
-  // Modificamos esta parte para manejar correctamente los clicks
+  // CAMBIO: Modificamos esta parte para verificar si Firebase ya autenticó
   openModalButtons.forEach((button) => {
     button.addEventListener("click", function (event) {
       event.preventDefault();
 
-      // Verificamos el estado actual basado en localStorage
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      // Si Firebase ya verificó, usamos ese estado, si no, usamos localStorage como respaldo
+      const isFirebaseVerified = window.firebaseVerified === true;
+
+      // Determinamos si el usuario está logueado basado en la mejor información disponible
+      let isLoggedIn;
+      if (isFirebaseVerified) {
+        // Si Firebase ya verificó, usar el atributo data-status que fue establecido por onAuthStateChanged
+        isLoggedIn = button.getAttribute("data-status") === "logged-in";
+      } else {
+        // Si Firebase aún no ha verificado, usamos localStorage como respaldo temporal
+        isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      }
 
       if (!isLoggedIn) {
         // Si no hay sesión, mostramos el modal de login
         if (modal) modal.style.display = "flex";
       } else {
-        // Si hay sesión, cerramos la sesión
-        if (window.logout) {
-          window.logout();
+        // Si está logueado, mostramos u ocultamos el menú de cuenta
+        const menu = document.getElementById("account-dropdown");
+        if (menu && menu.style.display === "block") {
+          hideAccountMenu();
         } else {
-          localStorage.removeItem("isLoggedIn");
-          updateLoginInterface(false);
+          showAccountMenu(button);
         }
       }
     });

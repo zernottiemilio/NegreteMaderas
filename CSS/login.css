@@ -267,3 +267,45 @@ button[type="submit"]:hover {
 .shake {
   animation: shake 0.6s ease;
 }
+
+/* Estilos para el menú desplegable de cuenta */
+.account-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.account-dropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.account-dropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+.logout-option {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Estilos para mostrar que el botón de MI CUENTA tiene un menú desplegable */
+.login-btn[data-status="logged-in"] {
+  position: relative;
+}
+
+.login-btn[data-status="logged-in"]::after {
+  content: "▼";
+  font-size: 9px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
