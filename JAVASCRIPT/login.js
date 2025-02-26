@@ -8,6 +8,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (modal) modal.style.display = "none";
 
+  // Crear el elemento de notificación y agregarlo al modal
+  const modalContent = document.querySelector(".modal-content");
+  if (modalContent) {
+    const notification = document.createElement("div");
+    notification.className = "notification";
+    notification.id = "notification";
+    notification.innerHTML =
+      '<span id="notification-message"></span><span class="notification-close">&times;</span>';
+
+    // Insertar después del h2 (título)
+    const title = modalContent.querySelector("h2");
+    if (title && title.nextSibling) {
+      modalContent.insertBefore(notification, title.nextSibling);
+    } else {
+      modalContent.insertBefore(notification, modalContent.firstChild);
+    }
+
+    // Agregar evento para cerrar la notificación
+    const closeNotification = notification.querySelector(".notification-close");
+    if (closeNotification) {
+      closeNotification.addEventListener("click", function () {
+        hideNotification();
+      });
+    }
+  }
+
+  function showNotification(message, type = "error") {
+    const notification = document.getElementById("notification");
+    const messageElement = document.getElementById("notification-message");
+
+    if (notification && messageElement) {
+      messageElement.textContent = message;
+      notification.className = "notification notification-" + type;
+      notification.style.display = "block";
+
+      if (type === "error") {
+        // Agregar animación de shake al modal
+        const modalContent = document.querySelector(".modal-content");
+        modalContent.classList.add("shake");
+        setTimeout(() => {
+          modalContent.classList.remove("shake");
+        }, 600);
+      }
+
+      // Auto-ocultar después de 5 segundos
+      setTimeout(() => {
+        hideNotification();
+      }, 5000);
+    }
+  }
+
+  function hideNotification() {
+    const notification = document.getElementById("notification");
+    if (notification) {
+      notification.style.display = "none";
+    }
+  }
+
+  // Exponer la función a la ventana para usarla en el script de Firebase
+  window.showNotification = showNotification;
+  window.hideNotification = hideNotification;
+
   let authInitialized = false;
 
   function updateLoginInterface(isLoggedIn) {
@@ -18,10 +80,13 @@ document.addEventListener("DOMContentLoaded", function () {
         button.querySelector("b") || button.querySelector("span");
       if (textElement)
         textElement.textContent = isLoggedIn ? "MI CUENTA" : "INICIAR SESION";
+
+      // Importante: Cambiamos la lógica de los IDs
+      // En lugar de cambiar el ID del botón, usamos un atributo data-status
       if (isLoggedIn) {
-        button.setAttribute("id", "logoutButton");
+        button.setAttribute("data-status", "logged-in");
       } else {
-        button.removeAttribute("id");
+        button.setAttribute("data-status", "logged-out");
       }
     });
 
@@ -34,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (closeModalButton) {
     closeModalButton.addEventListener("click", function () {
       modal.style.display = "none";
+      hideNotification(); // Ocultar notificación al cerrar el modal
     });
   }
 
@@ -50,12 +116,12 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("click", function (event) {
     if (event.target === modal) {
       modal.style.display = "none";
+      hideNotification(); // Ocultar notificación al cerrar el modal
     }
   });
 
-  // Verificar si hay una sesión activa almacenada localmente
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  updateLoginInterface(isLoggedIn);
+  // Inicialmente mostramos "INICIAR SESION" hasta que Firebase verifique
+  updateLoginInterface(false);
 
   const firebaseScript = document.createElement("script");
   firebaseScript.type = "module";
@@ -84,9 +150,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const auth = getAuth(app);
 
     const updateLoginInterface = window.updateLoginInterface;
+    const showNotification = window.showNotification;
 
     function login(e) {
       if (e) e.preventDefault();
+
+      // Ocultar notificación anterior si existe
+      if (window.hideNotification) window.hideNotification();
 
       // Importante: Obtenemos el elemento cada vez que lo necesitamos
       // para asegurarnos de que estamos usando la referencia correcta
@@ -94,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const passwordInput = document.getElementById('password');
 
       if (!emailInput || !passwordInput) {
-        console.error("Elementos de email o contraseña no encontrados.");
+        showNotification("Elementos de email o contraseña no encontrados.", "error");
         return;
       }
 
@@ -102,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = passwordInput.value.trim();
 
       if (!email || !password) {
-        alert("Por favor, ingresa un correo y una contraseña válidos.");
+        showNotification("Por favor, ingresa un correo y una contraseña válidos.", "error");
         return;
       }
 
@@ -113,13 +183,33 @@ document.addEventListener("DOMContentLoaded", function () {
           const user = userCredential.user;
           console.log("Usuario conectado:", user.email);
           localStorage.setItem("isLoggedIn", "true");
-          const modal = document.getElementById("modalOverlay");
-          if (modal) modal.style.display = "none";
+          showNotification("¡Inicio de sesión exitoso!", "success");
+          setTimeout(() => {
+            const modal = document.getElementById("modalOverlay");
+            if (modal) modal.style.display = "none";
+          }, 1000);
           updateLoginInterface(true);
         })
         .catch((error) => {
           console.error("Error al iniciar sesión:", error.message);
-          alert("Error de inicio de sesión: " + error.message);
+          let mensajeError = "Ha ocurrido un error al iniciar sesión.";
+
+          // Mensajes de error más amigables
+          if (error.code === "auth/invalid-email") {
+            mensajeError = "El correo electrónico no es válido.";
+          } else if (error.code === "auth/user-not-found") {
+            mensajeError = "No existe una cuenta con este correo.";
+          } else if (error.code === "auth/wrong-password") {
+            mensajeError = "La contraseña es incorrecta.";
+          } else if (error.code === "auth/too-many-requests") {
+            mensajeError = "Demasiados intentos fallidos. Intenta más tarde.";
+          } else if (error.code === "auth/user-disabled") {
+            mensajeError = "Esta cuenta ha sido deshabilitada.";
+          } else if (error.code.includes("network")) {
+            mensajeError = "Error de conexión. Verifica tu internet.";
+          }
+
+          showNotification(mensajeError, "error");
         });
     }
 
@@ -132,6 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch((error) => {
           console.error("Error al cerrar sesión:", error);
+          showNotification("Error al cerrar sesión: " + error.message, "error");
         });
     }
 
@@ -140,15 +231,27 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log("Usuario registrado:", user);
-          alert("Usuario registrado exitosamente");
+          showNotification("Usuario registrado exitosamente", "success");
           localStorage.setItem("isLoggedIn", "true");
           updateLoginInterface(true);
-          const modal = document.getElementById("modalOverlay");
-          if (modal) modal.style.display = "none";
+          setTimeout(() => {
+            const modal = document.getElementById("modalOverlay");
+            if (modal) modal.style.display = "none";
+          }, 1500);
         })
         .catch((error) => {
           console.error("Error al registrar:", error);
-          alert("Error de registro: " + error.message);
+          let mensajeError = "Error al registrar usuario.";
+
+          if (error.code === "auth/email-already-in-use") {
+            mensajeError = "Este correo ya está registrado.";
+          } else if (error.code === "auth/invalid-email") {
+            mensajeError = "El correo electrónico no es válido.";
+          } else if (error.code === "auth/weak-password") {
+            mensajeError = "La contraseña es demasiado débil.";
+          }
+
+          showNotification(mensajeError, "error");
         });
     }
 
@@ -157,11 +260,19 @@ document.addEventListener("DOMContentLoaded", function () {
       if (email) {
         sendPasswordResetEmail(auth, email)
           .then(() => {
-            alert("Se ha enviado un correo para restablecer tu contraseña.");
+            showNotification("Se ha enviado un correo para restablecer tu contraseña.", "success");
           })
           .catch((error) => {
             console.error("Error al enviar correo de recuperación:", error);
-            alert("Error: " + error.message);
+            let mensajeError = "Error al enviar correo de recuperación.";
+
+            if (error.code === "auth/invalid-email") {
+              mensajeError = "El correo electrónico no es válido.";
+            } else if (error.code === "auth/user-not-found") {
+              mensajeError = "No existe una cuenta con este correo.";
+            }
+
+            showNotification(mensajeError, "error");
           });
       }
     }
@@ -187,12 +298,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.body.appendChild(firebaseScript);
 
+  // Modificamos esta parte para manejar correctamente los clicks
   openModalButtons.forEach((button) => {
     button.addEventListener("click", function (event) {
       event.preventDefault();
-      if (localStorage.getItem("isLoggedIn") !== "true") {
+
+      // Verificamos el estado actual basado en localStorage
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+      if (!isLoggedIn) {
+        // Si no hay sesión, mostramos el modal de login
         if (modal) modal.style.display = "flex";
       } else {
+        // Si hay sesión, cerramos la sesión
         if (window.logout) {
           window.logout();
         } else {
@@ -205,19 +323,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (loginForm) {
     loginForm.addEventListener("submit", function (e) {
-      e.preventDefault();
+      e.preventDefault(); // Prevenimos el comportamiento por defecto
       console.log("Formulario enviado");
+
+      // Aseguramos que no se active el logout si estamos en el formulario
       if (window.login) {
         window.login(e);
       } else {
         console.error("La función login no está disponible todavía");
+        showNotification(
+          "Error: El sistema de inicio de sesión no está listo todavía.",
+          "error"
+        );
       }
+
+      // Importante: paramos la propagación del evento para que no llegue a otros listeners
+      e.stopPropagation();
     });
   }
 
   if (forgotPasswordLink) {
     forgotPasswordLink.addEventListener("click", function (e) {
       e.preventDefault();
+      e.stopPropagation(); // Detenemos la propagación
       if (window.recuperarContrasena) {
         window.recuperarContrasena();
       }
