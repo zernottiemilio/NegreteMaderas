@@ -34,6 +34,114 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // NUEVO: Crear modal para recuperación de contraseña
+  const createPasswordResetModal = () => {
+    // Verificar si ya existe para no crear duplicados
+    if (document.getElementById("passwordResetModal"))
+      return document.getElementById("passwordResetModal");
+
+    const resetModal = document.createElement("div");
+    resetModal.className = "modal-overlay";
+    resetModal.id = "passwordResetModal";
+    resetModal.style.display = "none";
+
+    resetModal.innerHTML = `
+      <div class="modal-content password-reset-modal">
+        <span class="close-modal" id="closeResetModal">&times;</span>
+        <h2>Recuperar Contraseña</h2>
+        <div class="notification" id="reset-notification" style="display: none;">
+          <span id="reset-notification-message"></span>
+          <span class="notification-close">&times;</span>
+        </div>
+        <p>Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+        <form id="passwordResetForm">
+          <div class="form-group">
+            <label for="resetEmail">Correo Electrónico</label>
+            <input type="email" id="resetEmail" required placeholder="ejemplo@correo.com">
+          </div>
+          <button type="submit" class="btn-primary">Enviar</button>
+        </form>
+      </div>
+    `;
+
+    document.body.appendChild(resetModal);
+
+    // Evento para cerrar el modal
+    const closeButton = resetModal.querySelector("#closeResetModal");
+    if (closeButton) {
+      closeButton.addEventListener("click", function () {
+        resetModal.style.display = "none";
+      });
+    }
+
+    // Evento para cerrar al hacer clic fuera
+    resetModal.addEventListener("click", function (event) {
+      if (event.target === resetModal) {
+        resetModal.style.display = "none";
+      }
+    });
+
+    // Evento para el formulario
+    const resetForm = resetModal.querySelector("#passwordResetForm");
+    if (resetForm) {
+      resetForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("resetEmail").value.trim();
+
+        if (window.recuperarContrasenaConEmail) {
+          window.recuperarContrasenaConEmail(email);
+        }
+      });
+    }
+
+    // Agregar evento para cerrar la notificación
+    const closeResetNotification = resetModal.querySelector(
+      ".notification-close"
+    );
+    if (closeResetNotification) {
+      closeResetNotification.addEventListener("click", function () {
+        hideResetNotification();
+      });
+    }
+
+    return resetModal;
+  };
+
+  // Función para mostrar notificación en el modal de reset
+  function showResetNotification(message, type = "error") {
+    const notification = document.getElementById("reset-notification");
+    const messageElement = document.getElementById(
+      "reset-notification-message"
+    );
+
+    if (notification && messageElement) {
+      messageElement.textContent = message;
+      notification.className = "notification notification-" + type;
+      notification.style.display = "block";
+
+      if (type === "error") {
+        // Agregar animación de shake al modal
+        const modalContent = document.querySelector(".password-reset-modal");
+        modalContent.classList.add("shake");
+        setTimeout(() => {
+          modalContent.classList.remove("shake");
+        }, 600);
+      }
+
+      // Auto-ocultar después de 5 segundos
+      setTimeout(() => {
+        hideResetNotification();
+      }, 5000);
+    }
+  }
+
+  function hideResetNotification() {
+    const notification = document.getElementById("reset-notification");
+    if (notification) {
+      notification.style.display = "none";
+    }
+  }
+
   // Crear el menú desplegable para la cuenta
   const createAccountMenu = () => {
     // Verificar si ya existe para no crear duplicados
@@ -43,6 +151,13 @@ document.addEventListener("DOMContentLoaded", function () {
     accountMenu.className = "account-dropdown";
     accountMenu.id = "account-dropdown";
 
+    // Agregar la opción de Sección Privada
+    const privateSection = document.createElement("a");
+    privateSection.href = "/HTML/rrhh.html"; // Ajusta la URL según necesites
+    privateSection.className = "private-section-option";
+    privateSection.innerHTML = "Sección Privada";
+
+    // Agregar la opción de Cerrar Sesión
     const logoutOption = document.createElement("a");
     logoutOption.href = "#";
     logoutOption.className = "logout-option";
@@ -57,6 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
       hideAccountMenu();
     });
 
+    // Agregar las opciones al menú en el orden: Sección Privada, Cerrar Sesión
+    accountMenu.appendChild(privateSection);
     accountMenu.appendChild(logoutOption);
     document.body.appendChild(accountMenu);
 
@@ -135,6 +252,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Exponer la función a la ventana para usarla en el script de Firebase
   window.showNotification = showNotification;
   window.hideNotification = hideNotification;
+  window.showResetNotification = showResetNotification;
+  window.hideResetNotification = hideResetNotification;
+  window.createPasswordResetModal = createPasswordResetModal;
 
   let authInitialized = false;
 
@@ -219,6 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const updateLoginInterface = window.updateLoginInterface;
     const showNotification = window.showNotification;
+    const showResetNotification = window.showResetNotification;
 
     function login(e) {
       if (e) e.preventDefault();
@@ -323,26 +444,41 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function recuperarContrasena() {
-      const email = prompt("Introduce tu correo electrónico para recuperar tu contraseña:");
-      if (email) {
-        sendPasswordResetEmail(auth, email)
-          .then(() => {
-            showNotification("Se ha enviado un correo para restablecer tu contraseña.", "success");
-          })
-          .catch((error) => {
-            console.error("Error al enviar correo de recuperación:", error);
-            let mensajeError = "Error al enviar correo de recuperación.";
-
-            if (error.code === "auth/invalid-email") {
-              mensajeError = "El correo electrónico no es válido.";
-            } else if (error.code === "auth/user-not-found") {
-              mensajeError = "No existe una cuenta con este correo.";
-            }
-
-            showNotification(mensajeError, "error");
-          });
+    // MODIFICADO: Nueva función para recuperar contraseña con correo desde el modal personalizado
+    function recuperarContrasenaConEmail(email) {
+      if (!email) {
+        showResetNotification("Por favor, ingresa un correo electrónico válido.", "error");
+        return;
       }
+
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          showResetNotification("Se ha enviado un correo para restablecer tu contraseña.", "success");
+          // Cerrar el modal después de 3 segundos
+          setTimeout(() => {
+            const resetModal = document.getElementById("passwordResetModal");
+            if (resetModal) resetModal.style.display = "none";
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error("Error al enviar correo de recuperación:", error);
+          let mensajeError = "Error al enviar correo de recuperación.";
+
+          if (error.code === "auth/invalid-email") {
+            mensajeError = "El correo electrónico no es válido.";
+          } else if (error.code === "auth/user-not-found") {
+            mensajeError = "No existe una cuenta con este correo.";
+          }
+
+          showResetNotification(mensajeError, "error");
+        });
+    }
+
+    // Mantener la función original para compatibilidad
+    function recuperarContrasena() {
+      // En lugar de usar prompt, mostramos nuestro modal personalizado
+      const resetModal = window.createPasswordResetModal();
+      resetModal.style.display = "flex";
     }
 
     // CAMBIO: Marcamos cuando Firebase ya verificó el estado
@@ -367,6 +503,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.logout = logout;
     window.registrar = registrar;
     window.recuperarContrasena = recuperarContrasena;
+    window.recuperarContrasenaConEmail = recuperarContrasenaConEmail;
   `;
 
   document.body.appendChild(firebaseScript);
