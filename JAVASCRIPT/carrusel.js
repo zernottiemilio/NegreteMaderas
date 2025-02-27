@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalImages = images.length;
 
   let currentIndex = 1; // Empezamos en la primera imagen real
+  let imageWidth = images[0].clientWidth; // Inicializamos el ancho
 
   // Clonamos la primera y última imagen
   const firstClone = images[0].cloneNode(true);
@@ -15,45 +16,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Actualizamos la lista de imágenes
   const allImages = document.querySelectorAll(".carousel-container img");
-  const imageWidth = allImages[0].clientWidth;
 
-  // Ajustamos la posición inicial
-  carouselContainer.style.transform = `translateX(-${
-    currentIndex * imageWidth
-  }px)`;
+  // Función para obtener el ancho actual de la imagen
+  function getCurrentImageWidth() {
+    return allImages[0].clientWidth;
+  }
 
-  function updateCarousel() {
-    carouselContainer.style.transition = "transform 0.5s ease-in-out";
+  // Función para actualizar la posición del carrusel
+  function updateCarousel(withTransition = true) {
+    imageWidth = getCurrentImageWidth(); // Actualizamos el ancho de la imagen
+
+    if (withTransition) {
+      carouselContainer.style.transition = "transform 0.5s ease-in-out";
+    } else {
+      carouselContainer.style.transition = "none";
+    }
+
     carouselContainer.style.transform = `translateX(-${
       currentIndex * imageWidth
     }px)`;
   }
 
+  // Ajustamos la posición inicial
+  updateCarousel(false);
+
   function nextSlide() {
     currentIndex++;
-    updateCarousel();
+    updateCarousel(true);
 
     // Cuando llega al clon de la primera imagen, saltamos a la imagen real sin animación
     if (currentIndex === allImages.length - 1) {
       setTimeout(() => {
-        carouselContainer.style.transition = "none";
         currentIndex = 1;
-        carouselContainer.style.transform = `translateX(-${
-          currentIndex * imageWidth
-        }px)`;
+        updateCarousel(false);
       }, 500);
     }
   }
 
   // Mueve el carrusel automáticamente cada 3 segundos
-  setInterval(nextSlide, 3500);
+  const autoplayInterval = setInterval(nextSlide, 3500);
+
+  // Añadimos funcionalidad para el slide anterior
+  function prevSlide() {
+    currentIndex--;
+    updateCarousel(true);
+
+    // Cuando llega al clon de la última imagen, saltamos a la imagen real sin animación
+    if (currentIndex === 0) {
+      setTimeout(() => {
+        currentIndex = allImages.length - 2;
+        updateCarousel(false);
+      }, 500);
+    }
+  }
 
   // Ajustar el carrusel al redimensionar la ventana
+  let resizeTimer;
   window.addEventListener("resize", () => {
-    const newWidth = allImages[0].clientWidth;
-    carouselContainer.style.transition = "none";
-    carouselContainer.style.transform = `translateX(-${
-      currentIndex * newWidth
-    }px)`;
+    // Usamos debounce para no sobrecargar con eventos de resize
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      updateCarousel(false);
+    }, 100);
   });
 });
