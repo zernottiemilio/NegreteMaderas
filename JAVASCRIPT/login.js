@@ -142,10 +142,86 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Crear el menú desplegable para la cuenta
+  // MODIFICADO: Función para crear el sidebar para dispositivos móviles
+  const createSidebar = () => {
+    // Verificar si ya existe para no crear duplicados
+    if (document.getElementById("mobile-sidebar"))
+      return document.getElementById("mobile-sidebar");
+
+    const sidebar = document.createElement("div");
+    sidebar.className = "mobile-sidebar";
+    sidebar.id = "mobile-sidebar";
+    sidebar.style.display = "none";
+
+    // Crear la estructura del sidebar
+    sidebar.innerHTML = `
+      <div class="sidebar-content">
+        <div class="sidebar-header">
+          <span class="close-sidebar">&times;</span>
+          <h3>Menú</h3>
+        </div>
+        <div class="sidebar-menu">
+          <a href="/HTML/rrhh.html" class="sidebar-option">Sección Privada</a>
+          <a href="#" class="sidebar-option logout-option">Cerrar Sesión</a>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(sidebar);
+
+    // Evento para cerrar el sidebar
+    const closeButton = sidebar.querySelector(".close-sidebar");
+    if (closeButton) {
+      closeButton.addEventListener("click", function () {
+        hideSidebar();
+      });
+    }
+
+    // Evento para el fondo oscuro (cierra al hacer clic fuera)
+    sidebar.addEventListener("click", function (event) {
+      if (event.target === sidebar) {
+        hideSidebar();
+      }
+    });
+
+    // Agregar evento para la opción de cerrar sesión
+    const logoutOption = sidebar.querySelector(".logout-option");
+    if (logoutOption) {
+      logoutOption.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (window.logout) {
+          window.logout();
+        }
+        hideSidebar();
+      });
+    }
+
+    return sidebar;
+  };
+
+  // Función para mostrar el sidebar
+  const showSidebar = () => {
+    const sidebar = createSidebar();
+    sidebar.style.display = "block";
+    // Añadir clase al body para prevenir scroll
+    document.body.classList.add("sidebar-open");
+  };
+
+  // Función para ocultar el sidebar
+  const hideSidebar = () => {
+    const sidebar = document.getElementById("mobile-sidebar");
+    if (sidebar) {
+      sidebar.style.display = "none";
+      // Remover clase del body
+      document.body.classList.remove("sidebar-open");
+    }
+  };
+
+  // MODIFICADO: Crear el menú desplegable para pantallas grandes
   const createAccountMenu = () => {
     // Verificar si ya existe para no crear duplicados
-    if (document.getElementById("account-dropdown")) return;
+    if (document.getElementById("account-dropdown"))
+      return document.getElementById("account-dropdown");
 
     const accountMenu = document.createElement("div");
     accountMenu.className = "account-dropdown";
@@ -153,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Agregar la opción de Sección Privada
     const privateSection = document.createElement("a");
-    privateSection.href = "/HTML/rrhh.html"; // Ajusta la URL según necesites
+    privateSection.href = "/HTML/rrhh.html";
     privateSection.className = "private-section-option";
     privateSection.innerHTML = "Sección Privada";
 
@@ -172,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
       hideAccountMenu();
     });
 
-    // Agregar las opciones al menú en el orden: Sección Privada, Cerrar Sesión
+    // Agregar las opciones al menú
     accountMenu.appendChild(privateSection);
     accountMenu.appendChild(logoutOption);
     document.body.appendChild(accountMenu);
@@ -180,8 +256,23 @@ document.addEventListener("DOMContentLoaded", function () {
     return accountMenu;
   };
 
-  // Mostrar el menú desplegable
+  // MODIFICADO: Función para mostrar el menú de cuenta según el tamaño de pantalla
+  const handleAccountMenu = (button) => {
+    // Determinar si estamos en dispositivo móvil (menos de 1024px)
+    const isMobile = window.innerWidth < 1024;
+
+    if (isMobile) {
+      // En móviles mostramos el sidebar
+      showSidebar();
+    } else {
+      // En escritorio mostramos el menú desplegable
+      showAccountMenu(button);
+    }
+  };
+
+  // Mostrar el menú desplegable para escritorio
   const showAccountMenu = (button) => {
+    // Crear el menú si no existe
     const menu = createAccountMenu();
 
     const buttonRect = button.getBoundingClientRect();
@@ -191,7 +282,15 @@ document.addEventListener("DOMContentLoaded", function () {
     menu.style.position = "absolute";
     menu.style.top = menuTop + "px";
     menu.style.left = menuLeft + "px";
-    menu.style.display = "block";
+
+    // Comprobar si el menú está visible o no
+    if (menu.style.display === "block") {
+      // Si ya está visible, lo ocultamos
+      menu.style.display = "none";
+    } else {
+      // Si está oculto, lo mostramos
+      menu.style.display = "block";
+    }
   };
 
   // Ocultar el menú desplegable
@@ -202,16 +301,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  // NUEVO: Añadir evento para detectar cambios en el tamaño de la ventana
+  window.addEventListener("resize", function () {
+    // Si estamos en móvil y el menú desplegable está abierto, lo cerramos
+    if (window.innerWidth < 1024) {
+      hideAccountMenu();
+    } else {
+      // Si estamos en escritorio y el sidebar está abierto, lo cerramos
+      hideSidebar();
+    }
+  });
+
   // Cerrar el menú si se hace clic fuera de él
   document.addEventListener("click", function (e) {
     const menu = document.getElementById("account-dropdown");
     const loginButtons = Array.from(document.querySelectorAll(".login-btn"));
+    const clickedOnButton = loginButtons.some((btn) => btn.contains(e.target));
 
+    // Cerrar el menú si:
+    // 1. El menú existe y está visible
+    // 2. El clic NO fue en el menú
+    // 3. El clic NO fue en un botón de login
     if (
       menu &&
       menu.style.display === "block" &&
       !menu.contains(e.target) &&
-      !loginButtons.some((btn) => btn.contains(e.target))
+      !clickedOnButton
     ) {
       hideAccountMenu();
     }
@@ -249,12 +364,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Exponer la función a la ventana para usarla en el script de Firebase
+  // Exponer funciones a la ventana
   window.showNotification = showNotification;
   window.hideNotification = hideNotification;
   window.showResetNotification = showResetNotification;
   window.hideResetNotification = hideResetNotification;
   window.createPasswordResetModal = createPasswordResetModal;
+  window.showSidebar = showSidebar;
+  window.hideSidebar = hideSidebar;
 
   let authInitialized = false;
 
@@ -267,8 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (textElement)
         textElement.textContent = isLoggedIn ? "MI CUENTA" : "INICIAR SESION";
 
-      // Importante: Cambiamos la lógica de los IDs
-      // En lugar de cambiar el ID del botón, usamos un atributo data-status
+      // Cambiamos la lógica de los IDs usando un atributo data-status
       if (isLoggedIn) {
         button.setAttribute("data-status", "logged-in");
       } else {
@@ -279,18 +395,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.updateLoginInterface = updateLoginInterface;
 
-  // CAMBIO: Mostramos inicialmente la interfaz según lo que indica localStorage
-  // pero marcamos esta información como potencialmente desactualizada
+  // Mostramos inicialmente la interfaz según lo que indica localStorage
   const initialLoggedInState = localStorage.getItem("isLoggedIn") === "true";
   updateLoginInterface(initialLoggedInState);
 
-  // CAMBIO: Agregamos una bandera para saber si Firebase ya verificó el estado real
+  // Bandera para saber si Firebase ya verificó el estado real
   let firebaseVerified = false;
 
   if (closeModalButton) {
     closeModalButton.addEventListener("click", function () {
       modal.style.display = "none";
-      hideNotification(); // Ocultar notificación al cerrar el modal
+      hideNotification();
     });
   }
 
@@ -307,7 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("click", function (event) {
     if (event.target === modal) {
       modal.style.display = "none";
-      hideNotification(); // Ocultar notificación al cerrar el modal
+      hideNotification();
     }
   });
 
@@ -347,7 +462,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Ocultar notificación anterior si existe
       if (window.hideNotification) window.hideNotification();
 
-      // Importante: Obtenemos el elemento cada vez que lo necesitamos
+      // Obtenemos el elemento cada vez que lo necesitamos
       // para asegurarnos de que estamos usando la referencia correcta
       const emailInput = document.getElementById('email');
       const passwordInput = document.getElementById('password');
@@ -444,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // MODIFICADO: Nueva función para recuperar contraseña con correo desde el modal personalizado
+    // Nueva función para recuperar contraseña con correo desde el modal personalizado
     function recuperarContrasenaConEmail(email) {
       if (!email) {
         showResetNotification("Por favor, ingresa un correo electrónico válido.", "error");
@@ -481,7 +596,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resetModal.style.display = "flex";
     }
 
-    // CAMBIO: Marcamos cuando Firebase ya verificó el estado
+    // Marcamos cuando Firebase ya verificó el estado
     onAuthStateChanged(auth, (user) => {
       const isLoggedIn = user !== null;
       window.firebaseVerified = true;
@@ -508,10 +623,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.body.appendChild(firebaseScript);
 
-  // CAMBIO: Modificamos esta parte para verificar si Firebase ya autenticó
+  // MODIFICADO: Manejo del clic en los botones de login
   openModalButtons.forEach((button) => {
     button.addEventListener("click", function (event) {
+      // Prevenir comportamiento predeterminado
       event.preventDefault();
+
+      // Detener la propagación para que no se cierre inmediatamente
+      event.stopPropagation();
 
       // Si Firebase ya verificó, usamos ese estado, si no, usamos localStorage como respaldo
       const isFirebaseVerified = window.firebaseVerified === true;
@@ -530,13 +649,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Si no hay sesión, mostramos el modal de login
         if (modal) modal.style.display = "flex";
       } else {
-        // Si está logueado, mostramos u ocultamos el menú de cuenta
-        const menu = document.getElementById("account-dropdown");
-        if (menu && menu.style.display === "block") {
-          hideAccountMenu();
-        } else {
-          showAccountMenu(button);
-        }
+        // MODIFICADO: Usamos la función responsiva para mostrar el menú
+        handleAccountMenu(button);
       }
     });
   });
