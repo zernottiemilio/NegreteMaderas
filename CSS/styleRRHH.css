@@ -169,6 +169,13 @@ nav ul li a:hover::after {
   color: #333;
   margin-bottom: 40px;
   position: relative;
+  text-align: left;
+}
+.form-p{
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
   padding-left: 0;
   text-align: left;
 }

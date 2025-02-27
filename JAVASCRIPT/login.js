@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // NUEVO: Crear modal para recuperación de contraseña
+  // MEJORADO: Modal para recuperación de contraseña con mejor feedback
   const createPasswordResetModal = () => {
     // Verificar si ya existe para no crear duplicados
     if (document.getElementById("passwordResetModal"))
@@ -61,6 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
           <button type="submit" class="btn-primary">Enviar</button>
         </form>
+        <div id="reset-status" class="reset-status">
+          <p>Estado: <span id="reset-status-message">Listo para enviar</span></p>
+        </div>
       </div>
     `;
 
@@ -81,12 +84,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Evento para el formulario
+    // Evento para el formulario con mejor manejo de seguimiento
     const resetForm = resetModal.querySelector("#passwordResetForm");
     if (resetForm) {
       resetForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const email = document.getElementById("resetEmail").value.trim();
+
+        // Actualizar estado
+        const statusMessage = document.getElementById("reset-status-message");
+        if (statusMessage) {
+          statusMessage.textContent = "Enviando solicitud...";
+        }
 
         if (window.recuperarContrasenaConEmail) {
           window.recuperarContrasenaConEmail(email);
@@ -107,12 +116,18 @@ document.addEventListener("DOMContentLoaded", function () {
     return resetModal;
   };
 
-  // Función para mostrar notificación en el modal de reset
+  // Función mejorada para mostrar notificación en el modal de reset
   function showResetNotification(message, type = "error") {
     const notification = document.getElementById("reset-notification");
     const messageElement = document.getElementById(
       "reset-notification-message"
     );
+    const statusMessage = document.getElementById("reset-status-message");
+
+    if (statusMessage) {
+      statusMessage.textContent =
+        type === "success" ? "Correo enviado" : "Error al enviar";
+    }
 
     if (notification && messageElement) {
       messageElement.textContent = message;
@@ -128,10 +143,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 600);
       }
 
-      // Auto-ocultar después de 5 segundos
-      setTimeout(() => {
-        hideResetNotification();
-      }, 5000);
+      // Auto-ocultar después de 5 segundos solo si es success
+      if (type === "success") {
+        setTimeout(() => {
+          hideResetNotification();
+        }, 5000);
+      }
     }
   }
 
@@ -426,6 +443,54 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Crea un div para mostrar el estado de la configuración de Firebase
+  const createDebugPanel = () => {
+    const debugPanel = document.createElement("div");
+    debugPanel.id = "firebase-debug-panel";
+    debugPanel.style.display = "none";
+    debugPanel.innerHTML = `
+      <div style="position: fixed; bottom: 0; right: 0; background: rgba(0,0,0,0.8); color: #00ff00; padding: 10px; font-family: monospace; font-size: 12px; z-index: 9999; max-width: 350px; max-height: 200px; overflow: auto;">
+        <div><strong>Firebase Debug:</strong> <span id="debug-status">Initializing...</span></div>
+        <div id="debug-messages"></div>
+      </div>
+    `;
+    document.body.appendChild(debugPanel);
+    return debugPanel;
+  };
+
+  // Crear panel de depuración (oculto por defecto)
+  const debugPanel = createDebugPanel();
+
+  // Añadir función para logging
+  const debugLog = (message) => {
+    console.log(`[Firebase Debug]: ${message}`);
+    const messagesDiv = document.getElementById("debug-messages");
+    if (messagesDiv) {
+      const logEntry = document.createElement("div");
+      logEntry.innerHTML = `<small>${new Date().toLocaleTimeString()}</small>: ${message}`;
+      messagesDiv.appendChild(logEntry);
+      // Mantener solo los últimos 10 mensajes
+      if (messagesDiv.children.length > 10) {
+        messagesDiv.removeChild(messagesDiv.children[0]);
+      }
+      // Auto-scroll al último mensaje
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  };
+
+  window.debugLog = debugLog;
+  window.toggleDebugPanel = () => {
+    debugPanel.style.display =
+      debugPanel.style.display === "none" ? "block" : "none";
+  };
+
+  // Agregar atajo de teclado para activar panel debug (Ctrl+Shift+D)
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === "D") {
+      window.toggleDebugPanel();
+    }
+  });
+
   const firebaseScript = document.createElement("script");
   firebaseScript.type = "module";
   firebaseScript.textContent = `
@@ -443,14 +508,34 @@ document.addEventListener("DOMContentLoaded", function () {
       apiKey: "AIzaSyBvqbOvyxFAXUz20f5uXDazTkHC_2ZZJCg",
       authDomain: "te-maderas.firebaseapp.com",
       projectId: "te-maderas",
-      storageBucket: "te-maderas.firebasestorage.app",
+      storageBucket: "te-maderas.appspot.com", // CORREGIDO: cambiado a appspot.com
       messagingSenderId: "16340271369",
       appId: "1:16340271369:web:f2c057f5be7f4bfe1c93d8",
       measurementId: "G-B3MF97KHGN"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    const debugLog = window.debugLog || console.log;
+
+    debugLog("Inicializando Firebase...");
+    let app;
+    try {
+      app = initializeApp(firebaseConfig);
+      debugLog("Firebase inicializado correctamente");
+      document.getElementById('debug-status').textContent = "Conectado";
+    } catch (error) {
+      debugLog("Error al inicializar Firebase: " + error.message);
+      document.getElementById('debug-status').textContent = "Error: " + error.message;
+      console.error("Error al inicializar Firebase:", error);
+    }
+
+    let auth;
+    try {
+      auth = getAuth(app);
+      debugLog("Auth inicializado correctamente");
+    } catch (error) {
+      debugLog("Error al inicializar Auth: " + error.message);
+      console.error("Error al inicializar Auth:", error);
+    }
 
     const updateLoginInterface = window.updateLoginInterface;
     const showNotification = window.showNotification;
@@ -480,12 +565,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      console.log("Intentando iniciar sesión con:", email);
+      debugLog("Intentando iniciar sesión con: " + email);
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log("Usuario conectado:", user.email);
+          debugLog("Usuario conectado: " + user.email);
           localStorage.setItem("isLoggedIn", "true");
           showNotification("¡Inicio de sesión exitoso!", "success");
           setTimeout(() => {
@@ -495,7 +580,7 @@ document.addEventListener("DOMContentLoaded", function () {
           updateLoginInterface(true);
         })
         .catch((error) => {
-          console.error("Error al iniciar sesión:", error.message);
+          debugLog("Error al iniciar sesión: " + error.code + " - " + error.message);
           let mensajeError = "Ha ocurrido un error al iniciar sesión.";
 
           // Mensajes de error más amigables
@@ -520,21 +605,23 @@ document.addEventListener("DOMContentLoaded", function () {
     function logout() {
       signOut(auth)
         .then(() => {
-          console.log("Usuario desconectado");
+          debugLog("Usuario desconectado correctamente");
           localStorage.removeItem("isLoggedIn");
           updateLoginInterface(false);
         })
         .catch((error) => {
-          console.error("Error al cerrar sesión:", error);
+          debugLog("Error al cerrar sesión: " + error.message);
           showNotification("Error al cerrar sesión: " + error.message, "error");
         });
     }
 
     function registrar(email, password) {
+      debugLog("Intentando registrar usuario con: " + email);
+
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log("Usuario registrado:", user);
+          debugLog("Usuario registrado correctamente: " + user.email);
           showNotification("Usuario registrado exitosamente", "success");
           localStorage.setItem("isLoggedIn", "true");
           updateLoginInterface(true);
@@ -544,7 +631,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }, 1500);
         })
         .catch((error) => {
-          console.error("Error al registrar:", error);
+          debugLog("Error al registrar: " + error.code + " - " + error.message);
           let mensajeError = "Error al registrar usuario.";
 
           if (error.code === "auth/email-already-in-use") {
@@ -559,30 +646,62 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Nueva función para recuperar contraseña con correo desde el modal personalizado
+    // Función mejorada para recuperar contraseña
     function recuperarContrasenaConEmail(email) {
       if (!email) {
+        debugLog("Intento de recuperación de contraseña: Email vacío");
         showResetNotification("Por favor, ingresa un correo electrónico válido.", "error");
+        return;
+      }
+
+      debugLog("Intentando enviar correo de recuperación a: " + email);
+
+      // Actualizar el estado en la interfaz
+      const statusMessage = document.getElementById("reset-status-message");
+      if (statusMessage) {
+        statusMessage.textContent = "Enviando solicitud...";
+      }
+
+      // Verificar que auth esté disponible
+      if (!auth) {
+        debugLog("ERROR CRÍTICO: Auth no está inicializado");
+        showResetNotification("Error de sistema: Autenticación no disponible", "error");
         return;
       }
 
       sendPasswordResetEmail(auth, email)
         .then(() => {
-          showResetNotification("Se ha enviado un correo para restablecer tu contraseña.", "success");
-          // Cerrar el modal después de 3 segundos
+          debugLog("Correo de recuperación enviado exitosamente a: " + email);
+          showResetNotification("Se ha enviado un correo para restablecer tu contraseña. Revisa tu bandeja de entrada y carpeta de spam.", "success");
+
+          // Cerrar el modal después de 5 segundos
           setTimeout(() => {
             const resetModal = document.getElementById("passwordResetModal");
             if (resetModal) resetModal.style.display = "none";
-          }, 3000);
+          }, 5000);
         })
         .catch((error) => {
-          console.error("Error al enviar correo de recuperación:", error);
+          debugLog("Error al enviar correo de recuperación: " + error.code + " - " + error.message);
           let mensajeError = "Error al enviar correo de recuperación.";
 
           if (error.code === "auth/invalid-email") {
             mensajeError = "El correo electrónico no es válido.";
           } else if (error.code === "auth/user-not-found") {
             mensajeError = "No existe una cuenta con este correo.";
+          } else if (error.code === "auth/missing-android-pkg-name") {
+            mensajeError = "Error de configuración en Firebase. Contacta al administrador.";
+          } else if (error.code === "auth/missing-continue-uri") {
+            mensajeError = "Error de configuración en Firebase. Contacta al administrador.";
+          } else if (error.code === "auth/missing-ios-bundle-id") {
+            mensajeError = "Error de configuración en Firebase. Contacta al administrador.";
+          } else if (error.code === "auth/invalid-continue-uri") {
+            mensajeError = "Error de configuración en Firebase. Contacta al administrador.";
+          } else if (error.code === "auth/unauthorized-continue-uri") {
+            mensajeError = "El dominio no está autorizado en Firebase. Contacta al administrador.";
+          } else if (error.code.includes("network")) {
+            mensajeError = "Error de conexión. Verifica tu internet.";
+          } else {
+            mensajeError = "Error: " + error.message;
           }
 
           showResetNotification(mensajeError, "error");
@@ -591,6 +710,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mantener la función original para compatibilidad
     function recuperarContrasena() {
+      debugLog("Abriendo modal de recuperación de contraseña");
       // En lugar de usar prompt, mostramos nuestro modal personalizado
       const resetModal = window.createPasswordResetModal();
       resetModal.style.display = "flex";
@@ -604,16 +724,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (isLoggedIn) {
         localStorage.setItem("isLoggedIn", "true");
-        console.log("Usuario autenticado:", user.email);
+        debugLog("Usuario autenticado: " + user.email);
       } else {
         localStorage.removeItem("isLoggedIn");
-        console.log("No hay usuario autenticado");
+        debugLog("No hay usuario autenticado");
       }
 
       // Actualizamos la interfaz con el estado real verificado por Firebase
       updateLoginInterface(isLoggedIn);
     });
 
+    // Exponer las funciones a la ventana global
     window.login = login;
     window.logout = logout;
     window.registrar = registrar;

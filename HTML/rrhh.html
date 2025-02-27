@@ -18,7 +18,6 @@
     <div class="bar"></div>
     <div class="bar"></div>
   </div>
-
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">
@@ -28,7 +27,6 @@
       </div>
       <button class="close-sidebar">×</button>
     </div>
-
     <div class="sidebar-nav">
       <ul>
         <li><a href="#inicio">INICIO</a></li>
@@ -80,37 +78,44 @@
   </div>
 
   <main class="content">
-    <form class="form-container">
+    <!-- FORMULARIO CORREGIDO -->
+    <form class="form-container" action="https://getform.io/f/bxowjxka" method="POST" enctype="multipart/form-data">
       <h1 class="form-title">¿QUERES TRABAJAR EN NEGRETE MADERAS?</h1>
+      <p class="form-p">Si te caracteriza la proactividad, el compromiso con tus objetivos y la pasión por afrontar nuevos desafíos, te
+      ofrecemos la oportunidad de unirte a una empresa en plena expansión. Trabaja con nosotros en un ambiente dinámico, donde
+      el crecimiento profesional y el aprendizaje constante son una prioridad. Ofrecemos atractivas condiciones laborales y un
+      equipo que comparte valores fundamentales. ¡Envía tu CV y forma parte de nuestro proyecto!</p>
 
       <div class="form-field">
         <label for="email">Correo electrónico</label>
-        <input type="email" id="email" placeholder="Tu dirección de correo electrónico" required>
+        <input type="email" id="email" name="email" placeholder="Tu dirección de correo electrónico" required>
       </div>
 
       <div class="form-field">
         <label for="name">Nombre completo</label>
-        <input type="text" id="name" placeholder="Tu respuesta" required>
+        <input type="text" id="name" name="name" placeholder="Tu respuesta" required>
       </div>
 
       <div class="form-field">
         <label for="age">Edad</label>
-        <input type="number" id="age" placeholder="Tu respuesta" required>
+        <input type="number" id="age" name="age" placeholder="Tu respuesta" required>
       </div>
 
       <div class="form-field">
         <label for="education">Último estudio finalizado</label>
-        <input type="text" id="education" placeholder="Tu respuesta" required>
+        <input type="text" id="education" name="education" placeholder="Tu respuesta" required>
       </div>
 
       <div class="form-field">
         <label for="city">Ciudad de residencia</label>
-        <input type="text" id="city" placeholder="Tu respuesta" required>
+        <input type="text" id="city" name="city" placeholder="Tu respuesta" required>
       </div>
+
       <div class="form-field">
         <label for="phone">Teléfono de contacto</label>
-        <input type="tel" id="phone" placeholder="Tu respuesta" required>
+        <input type="tel" id="phone" name="phone" placeholder="Tu respuesta" required>
       </div>
+
       <div class="cv-upload">
         <p>Adjunta tu CV</p>
         <p class="file-info">Archivo en PDF</p>
@@ -125,6 +130,7 @@
       </div>
     </form>
   </main>
+
   <footer>
     <div class="social-links">
       <a href="https://www.instagram.com/negrete.maderas?igsh=aXJhZGxva3V0dGsw" target="_blank">
@@ -136,6 +142,7 @@
     </div>
     <p>&copy; 2025 NEGRETE MADERAS. Todos los derechos reservados.</p>
   </footer>
+
   <!-- Modal de Inicio de Sesión -->
   <div id="modalOverlay" class="modal-overlay" style="display: none;">
     <div class="modal-content">
@@ -151,7 +158,7 @@
       <form onsubmit="event.preventDefault(); login();">
         <!-- Campo de usuario -->
         <div class="input-container">
-          <input type="email" id="email" placeholder="Correo electrónico" required>
+          <input type="email" id="login-email" placeholder="Correo electrónico" required>
           <input type="password" id="password" placeholder="Contraseña" required>
           <button type="submit">Iniciar Sesión</button>
         </div>
@@ -160,22 +167,24 @@
       <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
     </div>
   </div>
+
   <script>
     document.getElementById('cv-file').addEventListener('change', function () {
-        const fileName = this.files[0]?.name;
-        const fileNameElement = document.getElementById('file-name');
-        const submitBtn = document.getElementById('submit-btn');
+      const fileName = this.files[0]?.name;
+      const fileNameElement = document.getElementById('file-name');
+      const submitBtn = document.getElementById('submit-btn');
 
-        if (fileName) {
-          fileNameElement.textContent = fileName;
-          submitBtn.style.display = 'block';
-          document.querySelector('.cv-upload-btn').textContent = 'Cambiar archivo';
-        } else {
-          fileNameElement.textContent = '';
-          submitBtn.style.display = 'none';
-          document.querySelector('.cv-upload-btn').textContent = 'Agregar archivo';
-        }
-      });
+      if (fileName) {
+        fileNameElement.textContent = fileName;
+        submitBtn.style.display = 'block';
+        document.querySelector('.cv-upload-btn').textContent = 'Cambiar archivo';
+      } else {
+        fileNameElement.textContent = '';
+        submitBtn.style.display = 'none';
+        document.querySelector('.cv-upload-btn').textContent = 'Agregar archivo';
+      }
+    });
   </script>
 </body>
+
 </html>
