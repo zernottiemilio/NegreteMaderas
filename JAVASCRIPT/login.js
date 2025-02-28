@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Agregar la opción de Sección Privada
     const privateSection = document.createElement("a");
-    privateSection.href = "/HTML/rrhh.html";
+    privateSection.href = "/HTML/seccionPrivada.html";
     privateSection.className = "private-section-option";
     privateSection.innerHTML = "Sección Privada";
 
