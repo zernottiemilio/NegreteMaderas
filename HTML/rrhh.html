@@ -78,8 +78,8 @@
   </div>
 
   <main class="content">
-    <!-- FORMULARIO CORREGIDO -->
-    <form class="form-container" action="https://getform.io/f/bxowjxka" method="POST" enctype="multipart/form-data">
+    <!-- FORMULARIO MODIFICADO PARA USAR MAILTO -->
+    <form class="form-container" id="contact-form" onsubmit="sendEmail(event)">
       <h1 class="form-title">¿QUERES TRABAJAR EN NEGRETE MADERAS?</h1>
       <p class="form-p">Si te caracteriza la proactividad, el compromiso con tus objetivos y la pasión por afrontar nuevos desafíos, te
       ofrecemos la oportunidad de unirte a una empresa en plena expansión. Trabaja con nosotros en un ambiente dinámico, donde
@@ -184,6 +184,47 @@
         document.querySelector('.cv-upload-btn').textContent = 'Agregar archivo';
       }
     });
+
+    function sendEmail(event) {
+      event.preventDefault();
+
+      // Obtener los valores del formulario
+      const email = document.getElementById('email').value;
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const education = document.getElementById('education').value;
+      const city = document.getElementById('city').value;
+      const phone = document.getElementById('phone').value;
+
+      // Correo al que se enviará (cámbialo por tu dirección)
+      const toEmail = 'info@negretemaderas.com'; // Cambia esto por tu correo real
+
+      // Asunto del correo
+      const subject = 'Nueva postulación laboral de ' + name;
+
+      // Cuerpo del correo
+      const body = `
+      Nueva postulación laboral:
+
+      Nombre: ${name}
+      Email: ${email}
+      Edad: ${age}
+      Educación: ${education}
+      Ciudad: ${city}
+      Teléfono: ${phone}
+
+      Por favor, revisa el CV adjunto que ha sido seleccionado por el candidato.
+      `;
+
+      // Crear el enlace mailto
+      const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Abrir el cliente de correo predeterminado
+      window.location.href = mailtoLink;
+
+      // Mostrar mensaje al usuario
+      alert('Se abrirá tu cliente de correo. Por favor, adjunta manualmente tu CV antes de enviar el correo.');
+    }
   </script>
 </body>
 
