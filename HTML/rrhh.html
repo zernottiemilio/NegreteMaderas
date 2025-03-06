@@ -12,6 +12,7 @@
   <script src="/JAVASCRIPT/login.js"></script>
   <link rel="stylesheet" href="/CSS/login.css">
 </head>
+
 <body>
   <div class="hamburger-menu">
     <div class="bar"></div>
@@ -81,10 +82,13 @@
     <!-- FORMULARIO MODIFICADO PARA USAR MAILTO -->
     <form class="form-container" id="contact-form" onsubmit="sendEmail(event)">
       <h1 class="form-title">¿QUERES TRABAJAR EN NEGRETE MADERAS?</h1>
-      <p class="form-p">Si te caracteriza la proactividad, el compromiso con tus objetivos y la pasión por afrontar nuevos desafíos, te
-      ofrecemos la oportunidad de unirte a una empresa en plena expansión. Trabaja con nosotros en un ambiente dinámico, donde
-      el crecimiento profesional y el aprendizaje constante son una prioridad. Ofrecemos atractivas condiciones laborales y un
-      equipo que comparte valores fundamentales. ¡Envía tu CV y forma parte de nuestro proyecto!</p>
+      <p class="form-p">Si te caracteriza la proactividad, el compromiso con tus objetivos y la pasión por afrontar
+        nuevos desafíos, te
+        ofrecemos la oportunidad de unirte a una empresa en plena expansión. Trabaja con nosotros en un ambiente
+        dinámico, donde
+        el crecimiento profesional y el aprendizaje constante son una prioridad. Ofrecemos atractivas condiciones
+        laborales y un
+        equipo que comparte valores fundamentales. ¡Envía tu CV y forma parte de nuestro proyecto!</p>
 
       <div class="form-field">
         <label for="email">Correo electrónico</label>
@@ -206,7 +210,7 @@
       const body = `
       Nueva postulación laboral:
 
-      Nombre: ${name}
+      Nombre Completo: ${name}
       Email: ${email}
       Edad: ${age}
       Educación: ${education}

@@ -11,6 +11,42 @@
   <link rel="stylesheet" href="/CSS/sidebar.css">
   <script src="/JAVASCRIPT/responsive.js" defer></script>
   <script src="/JAVASCRIPT/login.js" defer></script>
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('contact-email').value;
+      const message = document.getElementById('message').value;
+
+      // Validación básica
+      if (!name || !phone || !email || !message) {
+        alert('Por favor complete todos los campos obligatorios.');
+        return;
+      }
+
+      // Asunto del correo
+      const subject = encodeURIComponent('Contacto desde sitio web - ' + name);
+
+      // Cuerpo del correo
+      const body = encodeURIComponent(
+        'Nombre: ' + name + '\n' +
+        'Teléfono: ' + phone + '\n' +
+        'Email: ' + email + '\n\n' +
+        'Mensaje: ' + message
+      );
+
+      // Abrir cliente de correo con los datos predefinidos
+      window.location.href = `mailto:Ventas@almexsrl.com?subject=${subject}&body=${body}`;
+
+      // Mensaje de confirmación
+      alert('Se abrirá su cliente de correo para enviar el mensaje. Si no ve la ventana, por favor verifique su configuración.');
+
+      // Opcional: Limpiar el formulario
+      document.getElementById('contact-form').reset();
+    }
+  </script>
 </head>
 
 <body>
@@ -87,7 +123,7 @@
       <section class="contactos">
         <div class="contact-form">
           <h2>CONTÁCTANOS</h2>
-          <form action="https://getform.io/f/bxowjxka" method="POST">
+          <form id="contact-form" onsubmit="submitForm(event)">
             <div class="form-group">
               <label for="name">Nombre*</label>
               <input type="text" id="name" name="name" required>
