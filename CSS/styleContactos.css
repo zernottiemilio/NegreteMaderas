@@ -146,6 +146,7 @@ nav ul li a:hover::after {
   object-fit: cover;
   z-index: -1;
 }
+
 .contactos-section h1 {
   font-size: 40px;
   font-weight: bold;
@@ -236,12 +237,13 @@ nav ul li a:hover::after {
   width: auto;
 }
 
-.contactos input{
+.contactos input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 /* Main Content */
 main {
   padding: 40px;
@@ -260,8 +262,7 @@ label {
   margin-bottom: 5px;
 }
 
-.contactos
-textarea {
+.contactos textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -323,22 +324,22 @@ textarea {
 }
 
 
-.contact-info{
-    background-color: #fff;
-    /* Fondo blanco */
-    border-radius: 15px;
-    /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Sombra suave */
-    padding: 10px;
-    /* Espaciado interno */
-    margin: 20px auto;
-    /* Margen superior e inferior, centrado horizontal */
-    margin-bottom: 20px;
-    width: 800px;
-    /* Ancho máximo */
-    border: 1px solid #e0e0e0;
-    /* Borde opcional */
+.contact-info {
+  background-color: #fff;
+  /* Fondo blanco */
+  border-radius: 15px;
+  /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+  padding: 10px;
+  /* Espaciado interno */
+  margin: 20px auto;
+  /* Margen superior e inferior, centrado horizontal */
+  margin-bottom: 20px;
+  width: 800px;
+  /* Ancho máximo */
+  border: 1px solid #e0e0e0;
+  /* Borde opcional */
 }
 
 
@@ -348,11 +349,17 @@ textarea {
   align-items: flex-start;
   gap: 40px;
   padding: 20px;
+  flex-wrap: wrap;
+  /* Permite que los elementos se ajusten en pantallas pequeñas */
 }
 
-.contactos, .mapa{
+.contactos,
+.mapa {
   flex: 1;
+  min-width: 300px;
+  /* Asegura un tamaño mínimo en pantallas pequeñas */
 }
+
 /* Estilo del formulario */
 .contact-form {
   /* Toma todo el espacio disponible */
@@ -360,22 +367,22 @@ textarea {
 
 }
 
-.contact-info{
+.contact-info {
   width: 90%;
   margin-left: 20px;
   margin-right: 20px;
 }
 
-/* Estilo del mapa */
+/* Estilo del mapa - Actualizado para responsividad */
 .map-container {
+  width: 100%;
+  /* Cambiado de tamaño fijo a relativo */
   height: 600px;
-  width: 500px;
   border-radius: 15px;
-  /* Puedes ajustar este valor */
   overflow: hidden;
-  /* Importante: asegura que el iframe no sobresalga del contenedor */
   margin-top: 90px;
-  margin-left: 120px;
+  margin-left: 0;
+  /* Eliminada la posición fija */
 }
 
 /* Estilo del iframe */
@@ -383,9 +390,46 @@ textarea {
   width: 100%;
   height: 100%;
   border: none;
-  /* Elimina el borde por defecto del iframe */
   border-radius: 15px;
-  /* El mismo valor que el contenedor */
+}
+
+/* Media queries para el mapa */
+@media (min-width: 992px) {
+  .map-container {
+    margin-left: 120px;
+    /* Mantiene el margen original en pantallas grandes */
+    width: 500px;
+    /* Mantiene el ancho original en pantallas grandes */
+  }
+}
+
+@media (max-width: 992px) {
+  .form-map-container {
+    flex-direction: column;
+    /* Apila los elementos en pantallas medianas */
+  }
+
+  .map-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 450px;
+    /* Reduce la altura en tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .map-container {
+    height: 350px;
+    /* Reduce aún más la altura en móviles */
+    margin-top: 40px;
+    /* Reduce el margen superior en móviles */
+  }
 }
 
 /* Footer */
