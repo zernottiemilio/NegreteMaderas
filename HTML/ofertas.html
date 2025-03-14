@@ -24,7 +24,7 @@
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">
-        <a href="index.html">
+        <a href="../index.html">
           <img src="/images/NEGRETE Logo-02.png" alt="Negrete Logo">
         </a>
       </div>
@@ -33,11 +33,11 @@
 
     <div class="sidebar-nav">
       <ul>
-        <li><a href="index.html">INICIO</a></li>
-        <li><a href="catalogo.html">CATALOGO</a></li>
-        <li><a href="contactos.html">CONTACTOS</a></li>
-        <li><a href="sobreNosotros.html">SOBRE NOSOTROS</a></li>
-        <li><a href="rrhh.html">
+        <li><a href="../index.html">INICIO</a></li>
+        <li><a href="/HTML/catalogo.html">CATALOGO</a></li>
+        <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
+        <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
+        <li><a href="/HTML/rrhh.html">
             <img src="ICONOS INICIO-13.png" alt="RRHH icon">
             <span>RRHH</span>
           </a></li>
@@ -52,16 +52,16 @@
   <div class="sidebar-overlay"></div>
   <header>
     <div class="logo">
-      <a href="Inicio.html">
+      <a href="../index.html">
         <img src="/images/NEGRETE Logo-02.png" alt="Negrete Logo">
       </a>
     </div>
     <nav>
       <ul>
-        <li><a href="index.html">INICIO</a></li>
-        <li><a href="catalogo.html">CATALOGO</a></li>
-        <li><a href="contactos.html">CONTACTOS</a></li>
-        <li><a href="sobreNosotros.html">SOBRE NOSOTROS</a></li>
+        <li><a href="../index.html">INICIO</a></li>
+        <li><a href="/HTML/catalogo.html">CATALOGO</a></li>
+        <li><a href="/HTML/contactos.html">CONTACTOS</a></li>
+        <li><a href="/HTML/sobreNosotros.html">SOBRE NOSOTROS</a></li>
       </ul>
     </nav>
     <div class="nav-buttons">
@@ -180,33 +180,33 @@
   </div>
   <script>
     document.querySelectorAll('.category-item a').forEach(item => {
-        item.addEventListener('click', function (event) {
-          event.preventDefault();
+      item.addEventListener('click', function (event) {
+        event.preventDefault();
 
-          const img = item.querySelector('img');
-          const parent = item.closest('.category-item');
+        const img = item.querySelector('img');
+        const parent = item.closest('.category-item');
 
-          // Si la imagen está ampliada, la cerramos
-          if (img.classList.contains('enlarged')) {
-            img.classList.remove('enlarged');
-            parent.classList.remove('clicked');
-          } else {
-            img.classList.add('enlarged');
-            parent.classList.add('clicked');
-          }
-        });
-      });
-
-      // Cuando se hace clic fuera de la imagen ampliada, cerrarla
-      document.addEventListener('click', function (event) {
-        const enlargedImg = document.querySelector('.category-item img.enlarged');
-        const clickedOutside = !enlargedImg.contains(event.target) && !event.target.closest('.category-item');
-
-        if (enlargedImg && clickedOutside) {
-          enlargedImg.classList.remove('enlarged');
-          enlargedImg.closest('.category-item').classList.remove('clicked');
+        // Si la imagen está ampliada, la cerramos
+        if (img.classList.contains('enlarged')) {
+          img.classList.remove('enlarged');
+          parent.classList.remove('clicked');
+        } else {
+          img.classList.add('enlarged');
+          parent.classList.add('clicked');
         }
       });
+    });
+
+    // Cuando se hace clic fuera de la imagen ampliada, cerrarla
+    document.addEventListener('click', function (event) {
+      const enlargedImg = document.querySelector('.category-item img.enlarged');
+      const clickedOutside = !enlargedImg.contains(event.target) && !event.target.closest('.category-item');
+
+      if (enlargedImg && clickedOutside) {
+        enlargedImg.classList.remove('enlarged');
+        enlargedImg.closest('.category-item').classList.remove('clicked');
+      }
+    });
 
   </script>
 </body>
