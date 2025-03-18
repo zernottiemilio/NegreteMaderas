@@ -62,7 +62,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #4CAF50;
+  color: #72A73B;
 }
 
 nav ul li a::after {
@@ -111,7 +111,7 @@ nav ul li a:hover::after {
 }
 
 .rrhh-btn:hover {
-  background-color: #4CAF50;
+  background-color: #72A73B;
 }
 
 .login-btn {
@@ -120,7 +120,7 @@ nav ul li a:hover::after {
 }
 
 .login-btn:hover {
-  background-color: #4CAF50;
+  background-color: #72A73B;
 }
 
 .nav-btn img {
@@ -128,23 +128,83 @@ nav ul li a:hover::after {
   height: 20px;
 }
 
+/* Solución completa para el banner principal */
 .main-banner {
   position: relative;
   width: 100%;
   height: auto;
-  height: calc(100vh - 100px);
+  /* Cambiado de altura fija a auto */
+  min-height: 60vh;
+  /* Altura mínima para escritorio */
   margin-top: -100px;
   z-index: 1;
 }
 
 .main-banner img {
-  position: absolute;
+  position: relative;
+  /* Cambiado de absolute a relative */
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  /* Permitir que la altura se ajuste automáticamente */
+  max-height: 100vh;
   object-fit: cover;
   z-index: -1;
+  display: block;
+  /* Asegurar que la imagen se comporta como un bloque */
+}
+
+/* Media queries específicas para el banner */
+@media (max-width: 1024px) {
+  .main-banner {
+    min-height: 50vh;
+    margin-top: -80px;
+    /* Ajustar el margen superior */
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    height: 80px;
+    /* Reducir altura del header */
+    padding: 20px 20px;
+  }
+
+  .logo img {
+    height: 100px;
+    /* Reducir tamaño del logo */
+  }
+
+  .main-banner {
+    min-height: 40vh;
+    margin-top: -60px;
+  }
+
+  /* Asegurar que la imagen se muestra completa */
+  .main-banner img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    height: 60px;
+    padding: 15px 15px;
+  }
+
+  .logo img {
+    height: 80px;
+  }
+
+  .main-banner {
+    min-height: 30vh;
+    margin-top: -40px;
+  }
 }
 
 /* ✅ Estilos generales de la línea del tiempo */
@@ -266,7 +326,7 @@ nav ul li a:hover::after {
   content: '';
   width: 15px;
   height: 15px;
-  background-color: green;
+  background-color: #72A73B;
   border-radius: 50%;
   position: absolute;
   bottom: 0;
@@ -555,7 +615,7 @@ h4 {
 
 /* Footer */
 footer {
-  background: linear-gradient(to right, #333333, #4CAF50);
+  background: linear-gradient(to right, #333333, #72A73B);
   color: #fff;
   padding: 5px 10px;
   /* Reduce la altura */

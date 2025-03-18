@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Recalculate on window resize
   window.addEventListener("resize", () => {
     const newSlidesToShow = Math.floor(track.offsetWidth / slideWidth);
-    const newMaxPosition = -(slides.length - newSlidesToShow) * slideWidth;
+    let newMaxPosition = -(slides.length - newSlidesToShow) * slideWidth;
     maxPosition = newMaxPosition;
 
     // Reset position if needed

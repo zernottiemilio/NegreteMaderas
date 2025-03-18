@@ -25,7 +25,7 @@ export default function MagnetLines({
       const a = pointer.y - centerY;
       const c = Math.sqrt(a * a + b * b) || 1;
       const r =
-        (Math.acos(b / c) * 180) / Math.PI * (pointer.y > centerY ? 1 : -1);
+        ((Math.acos(b / c) * 180) / Math.PI) * (pointer.y > centerY ? 1 : -1);
 
       item.style.setProperty("--rotate", `${r}deg`);
     });

@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   font-family: 'Made', sans-serif;
+  box-sizing: border-box;
+  /* Añadido para consistencia en todos los elementos */
 }
 
 /* Encabezado */
@@ -128,23 +130,86 @@ nav ul li a:hover::after {
   height: 20px;
 }
 
+/* Solución actualizada para el banner principal */
 .main-banner {
   position: relative;
   width: 100%;
   height: auto;
-  height: calc(100vh - 100px);
-  margin-top: -100px;
+  /* Cambiado de altura fija a auto */
+  min-height: 60vh;
+  /* Altura mínima para escritorio */
+  margin-top: -20px;
+  /* Cambiado de -100px a -20px para reducir superposición */
   z-index: 1;
 }
 
 .main-banner img {
-  position: absolute;
+  position: relative;
+  /* Cambiado de absolute a relative */
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  /* Permitir que la altura se ajuste automáticamente */
+  max-height: 100vh;
   object-fit: cover;
   z-index: -1;
+  display: block;
+  /* Asegurar que la imagen se comporta como un bloque */
+}
+
+/* Media queries específicas para el banner */
+@media (max-width: 1024px) {
+  .main-banner {
+    min-height: 50vh;
+    margin-top: -15px;
+    /* Ajustado proporcionalmente */
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    height: 80px;
+    /* Reducir altura del header */
+    padding: 20px 20px;
+  }
+
+  .logo img {
+    height: 100px;
+    /* Reducir tamaño del logo */
+  }
+
+  .main-banner {
+    min-height: 40vh;
+    margin-top: -10px;
+    /* Ajustado proporcionalmente */
+  }
+
+  /* Asegurar que la imagen se muestra completa */
+  .main-banner img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    height: 60px;
+    padding: 15px 15px;
+  }
+
+  .logo img {
+    height: 80px;
+  }
+
+  .main-banner {
+    min-height: 30vh;
+    margin-top: 0;
+    /* Sin superposición en pantallas más pequeñas */
+  }
 }
 
 .contactos-section h1 {
@@ -213,60 +278,54 @@ nav ul li a:hover::after {
   background: linear-gradient(to right, #4CAF50, #fff);
 }
 
+/* SECCIÓN DEL FORMULARIO - AJUSTADA PARA RESPONSIVE */
 .form-group {
   background-color: #fff;
-  /* Fondo blanco */
   border-radius: 15px;
-  /* Bordes redondeados */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Sombra suave */
-  padding: 30px;
-  /* Espaciado interno */
+  padding: 20px;
+  /* Reducido de 30px */
   margin: 20px auto;
-  /* Margen superior e inferior, centrado horizontal */
   margin-bottom: 20px;
   width: 100%;
-  /* Ancho máximo */
+  max-width: 100%;
+  /* Asegura que no exceda el ancho del contenedor padre */
   border: 1px solid #e0e0e0;
-  /* Borde opcional */
+  box-sizing: border-box;
+  /* Incluye padding y border en el ancho total */
 }
-
 
 .contactos-title {
   height: 100px;
   width: auto;
 }
 
-.contactos input {
+.contactos input,
+.contactos textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
+  /* Importante para que el padding no añada ancho extra */
 }
 
 /* Main Content */
 main {
   padding: 40px;
+  box-sizing: border-box;
+  width: 100%;
 }
-
 
 h2 {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-
 label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-}
-
-.contactos textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 .submit-btn {
@@ -277,8 +336,6 @@ label {
   border-radius: 4px;
   cursor: pointer;
 }
-
-
 
 .info-item {
   display: flex;
@@ -323,66 +380,57 @@ label {
   margin-top: 20px;
 }
 
-
 .contact-info {
   background-color: #fff;
-  /* Fondo blanco */
   border-radius: 15px;
-  /* Bordes redondeados */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Sombra suave */
   padding: 10px;
-  /* Espaciado interno */
   margin: 20px auto;
-  /* Margen superior e inferior, centrado horizontal */
   margin-bottom: 20px;
-  width: 800px;
-  /* Ancho máximo */
+  width: 100%;
+  /* Cambiado de 800px a 100% para responsividad */
   border: 1px solid #e0e0e0;
-  /* Borde opcional */
+  box-sizing: border-box;
 }
 
-
+/* Contenedor del formulario y mapa - Ajustado */
 .form-map-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 40px;
-  padding: 20px;
+  gap: 20px;
+  /* Reducido de 40px */
+  padding: 10px;
+  /* Reducido de 20px */
   flex-wrap: wrap;
-  /* Permite que los elementos se ajusten en pantallas pequeñas */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .contactos,
 .mapa {
   flex: 1;
-  min-width: 300px;
-  /* Asegura un tamaño mínimo en pantallas pequeñas */
+  min-width: 250px;
+  /* Reducido de 300px para pantallas más pequeñas */
+  box-sizing: border-box;
 }
 
 /* Estilo del formulario */
 .contact-form {
-  /* Toma todo el espacio disponible */
+  width: 100%;
   max-width: 600px;
-
+  box-sizing: border-box;
 }
 
-.contact-info {
-  width: 90%;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-/* Estilo del mapa - Actualizado para responsividad */
+/* Mapa responsivo */
 .map-container {
   width: 100%;
-  /* Cambiado de tamaño fijo a relativo */
   height: 600px;
   border-radius: 15px;
   overflow: hidden;
   margin-top: 90px;
   margin-left: 0;
-  /* Eliminada la posición fija */
+  box-sizing: border-box;
 }
 
 /* Estilo del iframe */
@@ -393,42 +441,102 @@ label {
   border-radius: 15px;
 }
 
-/* Media queries para el mapa */
+/* Media queries mejorados */
 @media (min-width: 992px) {
   .map-container {
     margin-left: 120px;
-    /* Mantiene el margen original en pantallas grandes */
     width: 500px;
-    /* Mantiene el ancho original en pantallas grandes */
   }
 }
 
 @media (max-width: 992px) {
   .form-map-container {
     flex-direction: column;
-    /* Apila los elementos en pantallas medianas */
+  }
+
+  .contactos,
+  .mapa {
+    width: 100%;
+    max-width: 100%;
   }
 
   .map-container {
+    margin-top: 30px;
+    height: 500px;
+    margin-left: 0;
+  }
+
+  .contact-info {
     width: 100%;
-    max-width: 700px;
-    margin: 20px auto;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
 @media (max-width: 768px) {
+
+  .contactos h2,
+  .work-with-us h2 {
+    font-size: 30px;
+    /* Reducimos tamaño del título */
+  }
+
   .map-container {
-    height: 450px;
-    /* Reduce la altura en tablets */
+    height: 400px;
+  }
+
+  .form-group {
+    padding: 15px;
+    /* Reducimos padding en móviles */
+  }
+
+  main {
+    padding: 30px;
   }
 }
 
 @media (max-width: 576px) {
+  main {
+    padding: 20px;
+    /* Reducimos el padding general */
+  }
+
+  .contactos h2,
+  .work-with-us h2 {
+    font-size: 24px;
+  }
+
+  .contactos h2::after,
+  .work-with-us h2::after {
+    height: 10px;
+    /* Reducimos altura del subrayado */
+  }
+
   .map-container {
-    height: 350px;
-    /* Reduce aún más la altura en móviles */
-    margin-top: 40px;
-    /* Reduce el margen superior en móviles */
+    height: 300px;
+    margin-top: 20px;
+  }
+
+  .form-group {
+    padding: 12px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    /* Botón de ancho completo en móviles */
+  }
+}
+
+/* Solución para muy pequeñas pantallas */
+@media (max-width: 360px) {
+  .info-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-item p {
+    text-align: center;
+    padding-top: 5px;
   }
 }
 
