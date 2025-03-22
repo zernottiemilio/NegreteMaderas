@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maderas Negrete</title>
-  <link rel="icon" type="image/x-icon" href="/images/FAVICON_Mesa de trabajo 1.png">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.png">
   <link rel="stylesheet" href="/CSS/styleRRHH.css">
   <link rel="stylesheet" href="/CSS/sidebar.css">
   <script src="/JAVASCRIPT/responsive.js"></script>
@@ -23,7 +23,7 @@
     <div class="sidebar-header">
       <div class="sidebar-logo">
         <a href="../index.html">
-          <img src="/images/NEGRETE Logo-02.png" alt="Negrete Logo">
+          <img src="/images/HISTORIAS INSTAGRAM-47.png" alt="Negrete Logo">
         </a>
       </div>
       <button class="close-sidebar">×</button>
@@ -51,7 +51,7 @@
   <header>
     <div class="logo">
       <a href="../index.html">
-        <img src="/images/NEGRETE Logo-02.png" alt="Negrete Maderas Logo">
+        <img src="/images/HISTORIAS INSTAGRAM-47.png" alt="Negrete Maderas Logo">
       </a>
     </div>
     <nav>
@@ -122,15 +122,10 @@
 
       <div class="cv-upload">
         <p>Adjunta tu CV</p>
-        <p class="file-info">Archivo en PDF</p>
-        <input type="file" id="cv-file" name="cv-file" accept=".pdf" style="display: none;" required>
-        <button type="button" class="cv-upload-btn" onclick="document.getElementById('cv-file').click()">
-          Agregar archivo
+        <p class="file-info">Al enviar el formulario, se abrirá tu cliente de correo para que adjuntes tu CV</p>
+        <button type="submit" class="cv-upload-btn">
+          aprieta para enviar el cuestionario
         </button>
-        <div class="file-display">
-          <span id="file-name"></span>
-          <button type="submit" id="submit-btn" class="submit-btn" style="display: none;">Enviar</button>
-        </div>
       </div>
     </form>
   </main>
@@ -140,9 +135,10 @@
       <a href="https://www.instagram.com/negrete.maderas?igsh=aXJhZGxva3V0dGsw" target="_blank">
         <img src="/images/ICONOS CONTACTOS-12.png" alt="Instagram">
       </a>
-      <a href="#"><img src="/images/ICONOS CONTACTOS-13.png" alt="Facebook"></a>
-      <a href="#"><img src="/images/ICONOS CONTACTOS-14.png" alt="Telefono"></a>
-      <a href="#"><img src="/images/ICONOS CONTACTOS-15.png" alt="Mail"></a>
+      <a href="https://www.facebook.com/share/1UaV8zKZzH/?mibextid=wwXIfr"><img src="/images/ICONOS CONTACTOS-13.png"
+          alt="Facebook"></a>
+      <a href="tel:+543534524961"><img src="/images/ICONOS CONTACTOS-14.png" alt="Telefono"></a>
+      <a href="mailto:Ventas@almexsrl.com"><img src="/images/ICONOS CONTACTOS-15.png" alt="Mail"></a>
     </div>
     <p>&copy; 2025 NEGRETE MADERAS. Todos los derechos reservados.</p>
   </footer>
@@ -173,22 +169,6 @@
   </div>
 
   <script>
-    document.getElementById('cv-file').addEventListener('change', function () {
-      const fileName = this.files[0]?.name;
-      const fileNameElement = document.getElementById('file-name');
-      const submitBtn = document.getElementById('submit-btn');
-
-      if (fileName) {
-        fileNameElement.textContent = fileName;
-        submitBtn.style.display = 'block';
-        document.querySelector('.cv-upload-btn').textContent = 'Cambiar archivo';
-      } else {
-        fileNameElement.textContent = '';
-        submitBtn.style.display = 'none';
-        document.querySelector('.cv-upload-btn').textContent = 'Agregar archivo';
-      }
-    });
-
     function sendEmail(event) {
       event.preventDefault();
 
@@ -217,7 +197,7 @@
       Ciudad: ${city}
       Teléfono: ${phone}
 
-      Por favor, revisa el CV adjunto que ha sido seleccionado por el candidato.
+      Por favor, adjunta tu CV a este correo antes de enviarlo.
       `;
 
       // Crear el enlace mailto

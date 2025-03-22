@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Made';
+  src: url('/Fonts/MADE_Tommy_Soft_Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Made', sans-serif;
+}
+
 /* Estilos generales del modal */
 .modal-overlay {
   display: none;
@@ -24,6 +37,7 @@
   position: relative;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
+
 /* Botón de cierre (X) */
 #closeModal {
   position: absolute;
@@ -109,7 +123,7 @@ h2 {
   outline: none;
 }
 
-/* Campo de contraseña con icono */
+/* Estilos para el contenedor de la contraseña */
 .password-container {
   display: flex;
   align-items: center;
@@ -117,6 +131,7 @@ h2 {
   width: 100%;
 }
 
+/* Asegurar que el input de contraseña tenga espacio para el ícono */
 .password-container input {
   padding-right: 40px;
   /* Espacio para el ícono */
@@ -124,16 +139,26 @@ h2 {
   /* Centrar el texto dentro del input */
 }
 
+/* Estilos para el ícono del ojo */
 .password-container i {
   position: absolute;
   right: 12px;
   /* Ajustado para alinearse perfectamente con la barra */
-  top: 60%;
-  /* Mover el botón un poco más abajo */
+  top: 50%;
+  /* Centrar verticalmente */
   transform: translateY(-50%);
+  /* Centrar verticalmente */
   cursor: pointer;
   color: gray;
   font-size: 18px;
+  z-index: 1;
+  /* Asegurar que esté por encima de otros elementos */
+}
+
+/* Asegurar que el ícono sea visible */
+.password-container i:hover {
+  color: darkgray;
+  /* Cambiar color al pasar el mouse */
 }
 
 /* Botón Iniciar sesión */
@@ -429,9 +454,26 @@ button[type="submit"]:hover {
 
 /* Animación de shake para errores */
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
 }
 
 .shake {

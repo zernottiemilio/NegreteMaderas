@@ -1,7 +1,19 @@
+@font-face {
+  font-family: 'Made';
+  src: url('/Fonts/MADE_Tommy_Soft_Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
   font-family: 'Made', sans-serif;
+}
+
+/* Update general paragraph styling to use the grayish color */
+p {
+  color: #686868;
 }
 
 /* Encabezado */
@@ -62,7 +74,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #72A73B;
+  color: #4CAF50;
 }
 
 nav ul li a::after {
@@ -111,7 +123,7 @@ nav ul li a:hover::after {
 }
 
 .rrhh-btn:hover {
-  background-color: #72A73B;
+  background-color: #4CAF50;
 }
 
 .login-btn {
@@ -120,7 +132,7 @@ nav ul li a:hover::after {
 }
 
 .login-btn:hover {
-  background-color: #72A73B;
+  background-color: #4CAF50;
 }
 
 .nav-btn img {
@@ -133,26 +145,21 @@ nav ul li a:hover::after {
   position: relative;
   width: 100%;
   height: auto;
-  /* Cambiado de altura fija a auto */
   min-height: 60vh;
-  /* Altura mínima para escritorio */
   margin-top: -100px;
   z-index: 1;
 }
 
 .main-banner img {
   position: relative;
-  /* Cambiado de absolute a relative */
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
-  /* Permitir que la altura se ajuste automáticamente */
   max-height: 100vh;
   object-fit: cover;
   z-index: -1;
   display: block;
-  /* Asegurar que la imagen se comporta como un bloque */
 }
 
 /* Media queries específicas para el banner */
@@ -160,20 +167,17 @@ nav ul li a:hover::after {
   .main-banner {
     min-height: 50vh;
     margin-top: -80px;
-    /* Ajustar el margen superior */
   }
 }
 
 @media (max-width: 768px) {
   header {
     height: 80px;
-    /* Reducir altura del header */
     padding: 20px 20px;
   }
 
   .logo img {
     height: 100px;
-    /* Reducir tamaño del logo */
   }
 
   .main-banner {
@@ -181,7 +185,6 @@ nav ul li a:hover::after {
     margin-top: -60px;
   }
 
-  /* Asegurar que la imagen se muestra completa */
   .main-banner img {
     position: relative;
     display: block;
@@ -207,14 +210,17 @@ nav ul li a:hover::after {
   }
 }
 
-/* ✅ Estilos generales de la línea del tiempo */
+/* Estilos generales de la línea del tiempo - CORREGIDOS */
 .timeline {
   position: relative;
   list-style: none;
   padding: 20px 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Asegura que la línea llegue al banner */
+  margin-top: -20px;
 }
 
 .timeline:before {
@@ -224,11 +230,14 @@ nav ul li a:hover::after {
   bottom: 0;
   left: 50%;
   width: 4px;
-  background-color: #008000;
+  background-color: #4CAF50;
   transform: translateX(-50%);
+  /* Asegura que la línea llegue hasta arriba */
+  height: calc(100% + 20px);
+  top: -20px;
 }
 
-/* ✅ Estilos de cada ítem de la línea del tiempo */
+/* Estilos de cada ítem de la línea del tiempo */
 .timeline li {
   display: flex;
   justify-content: center;
@@ -239,7 +248,7 @@ nav ul li a:hover::after {
   margin-bottom: 50px;
 }
 
-/* ✅ Estilos de los paneles de texto */
+/* Estilos de los paneles de texto */
 .timeline-panel {
   width: 40%;
   padding: 20px;
@@ -251,11 +260,11 @@ nav ul li a:hover::after {
   flex-direction: column;
 }
 
-/* ✅ Estilos de los círculos con imágenes (agrandados) */
+/* Estilos de los círculos con imágenes (agrandados) */
 .timeline-image {
   width: 250px;
   height: 250px;
-  border: 5px solid #008000;
+  /* Se ha eliminado el borde verde */
   border-radius: 50%;
   background-color: white;
   position: absolute;
@@ -264,7 +273,6 @@ nav ul li a:hover::after {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Asegurar que la proporción se mantenga */
   aspect-ratio: 1 / 1;
 }
 
@@ -280,7 +288,7 @@ nav ul li a:hover::after {
   transform: scale(1.2);
 }
 
-/* ✅ Alternar posiciones de imágenes y texto */
+/* Alternar posiciones de imágenes y texto */
 .timeline li:nth-child(odd) {
   flex-direction: row;
 }
@@ -291,17 +299,15 @@ nav ul li a:hover::after {
 
 .timeline li:nth-child(odd) .timeline-panel {
   text-align: center;
-  /* Cambiado a center */
   margin-right: 60px;
 }
 
 .timeline li:nth-child(even) .timeline-panel {
   text-align: center;
-  /* Cambiado a center */
   margin-left: 60px;
 }
 
-/* ✅ Posicionamiento de los círculos en la línea del tiempo */
+/* Posicionamiento de los círculos en la línea del tiempo */
 .timeline li:nth-child(odd) .timeline-image {
   left: calc(43% - 150px);
 }
@@ -310,7 +316,7 @@ nav ul li a:hover::after {
   left: calc(36% + 150px);
 }
 
-/* ✅ Ajuste de márgenes en los textos */
+/* Ajuste de márgenes en los textos */
 .timeline li:nth-child(odd) .timeline-panel {
   margin-left: auto;
   margin-right: 1px;
@@ -321,12 +327,12 @@ nav ul li a:hover::after {
   margin-right: auto;
 }
 
-/* ✅ Punto final en la línea del tiempo */
+/* Punto final en la línea del tiempo */
 .timeline::after {
   content: '';
   width: 15px;
   height: 15px;
-  background-color: #72A73B;
+  background-color: #4CAF50;
   border-radius: 50%;
   position: absolute;
   bottom: 0;
@@ -334,33 +340,35 @@ nav ul li a:hover::after {
   transform: translateX(-50%);
 }
 
-/* ✅ Estilos para los títulos */
+/* Estilos para los títulos */
 h2 {
-  color: #008000;
+  color: #4CAF50;
   font-size: 2rem;
   text-align: center;
   margin-bottom: 20px;
 }
 
 h4 {
-  color: #008000;
+  color: #4CAF50;
   font-size: 1.5rem;
   text-align: center;
 }
 
-/* ✅ Estilos para los párrafos */
+/* Estilos para los párrafos */
 .timeline-body p {
-  color: black;
+  color: #686868;
   font-size: 1rem;
   text-align: center;
-  /* Cambiado a center */
   line-height: 1.5;
 }
 
-/* 📌 RESPONSIVE DESIGN */
+/* RESPONSIVE DESIGN - CORREGIDO */
 @media (max-width: 1024px) {
   .timeline:before {
     left: 50%;
+    /* Aseguramos que la línea permanezca centrada */
+    height: 100%;
+    /* Asegura que cubra todo el contenido */
   }
 
   .timeline li {
@@ -382,13 +390,10 @@ h4 {
   .timeline-image {
     position: relative;
     left: 0 !important;
-    /* Anular posicionamiento left para ambos tipos */
     margin-bottom: 20px;
     width: 200px;
-    /* Reducir tamaño pero mantener proporción */
     height: 200px;
     aspect-ratio: 1 / 1;
-    /* Mantener proporción */
   }
 
   .timeline li:nth-child(odd) .timeline-panel,
@@ -400,16 +405,30 @@ h4 {
 }
 
 @media (max-width: 768px) {
+
+  /* Corrección específica para asegurar que la línea llegue hasta el banner en móvil */
+  .timeline {
+    margin-top: -40px;
+    /* Ajustado para móviles */
+    padding-top: 40px;
+    /* Añadido espacio superior */
+  }
+
+  .timeline:before {
+    height: calc(100% + 40px);
+    /* Asegura que la línea sea más larga */
+    top: -40px;
+    /* Empieza más arriba */
+  }
+
   .timeline li {
     margin-bottom: 30px;
   }
 
   .timeline-image {
     width: 150px;
-    /* Tamaño reducido pero manteniendo proporción */
     height: 150px;
     aspect-ratio: 1 / 1;
-    /* Asegurar que siga siendo un círculo */
   }
 
   .timeline-panel {
@@ -422,73 +441,33 @@ h4 {
 }
 
 @media (max-width: 480px) {
+
+  /* Ajustes adicionales para pantallas muy pequeñas */
+  .timeline {
+    margin-top: -60px;
+    /* Ajustado aún más para móviles pequeños */
+    padding-top: 60px;
+  }
+
+  .timeline:before {
+    height: calc(100% + 60px);
+    top: -60px;
+  }
+
   .timeline-image {
     width: 120px;
-    /* Aún más pequeño para móviles */
     height: 120px;
   }
 }
 
-/* ✅ Estilos para los títulos */
-h2 {
-  color: #008000;
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-h4 {
-  color: #008000;
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-/* 📌 RESPONSIVE DESIGN */
-@media (max-width: 1024px) {
-  .timeline li {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .timeline-panel {
-    width: 80%;
-    text-align: center;
-  }
-
-  .timeline-image {
-    position: relative;
-    left: 0;
-    margin-bottom: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .timeline li {
-    margin-bottom: 30px;
-    /* Ajusta los márgenes en pantallas más pequeñas */
-  }
-
-  .timeline-image {
-    width: 250px;
-    /* 100px * 2.5 */
-    height: 250px;
-    /* 100px * 2.5 */
-  }
-
-  .timeline-panel {
-    width: 90%;
-    /* Asegura que el panel de texto ocupe más espacio en pantallas pequeñas */
-  }
-}
-
-/* ✅ Estilos generales de la sección */
+/* Estilos generales de la sección */
 .equipo {
   padding: 60px 0;
   background-color: white;
 }
 
 .section-heading {
-  color: #008000;
+  color: #4CAF50;
   font-size: 2rem;
   margin-bottom: 40px;
   font-weight: bold;
@@ -502,123 +481,95 @@ h4 {
   height: auto;
 }
 
-/* ✅ Contenedor general para los miembros del equipo */
+/* Contenedor general para los miembros del equipo */
 .contenedor-equipo {
   display: grid;
-  /* Usamos grid en lugar de flex */
   grid-template-columns: repeat(4, 1fr);
-  /* Crea 4 columnas de igual tamaño */
   gap: 30px;
-  /* Espacio entre los elementos */
   padding: 0 10px;
 }
 
-/* ✅ Estilo para los miembros del equipo (cajas) */
+/* Estilo para los miembros del equipo (cajas) */
 .miembro {
   background-color: white;
-  /* Fondo blanco por defecto */
   padding: 20px;
   text-align: center;
-  /* Centrar todo el contenido */
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  /* Transiciones suaves */
   border-radius: 5px;
-  /* Bordes redondeados para las cajas */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  /* Sombra suave */
 }
 
-/* ✅ Efecto hover para agrandar las cajas */
+/* Efecto hover para agrandar las cajas */
 .miembro:hover {
   transform: scale(1.05);
-  /* Aumenta ligeramente el tamaño al pasar el mouse */
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  /* Sombra más pronunciada al hacer hover */
   background-color: #f0f0f0;
-  /* Fondo gris para toda la caja en hover */
 }
 
-/* ✅ Estilo para las imágenes de los miembros */
+/* Estilo para las imágenes de los miembros */
 .miembro img {
   width: 100%;
-  /* Asegura que las imágenes ocupen todo el ancho disponible */
   max-width: 200px;
-  /* Limita el tamaño máximo de la imagen */
   height: auto;
   border-radius: 50%;
-  /* Hace que las imágenes sean circulares */
   margin-bottom: 15px;
-  /* Espacio entre la imagen y el texto */
   aspect-ratio: 1 / 1;
-  /* Asegurar proporción 1:1 */
 }
 
-/* ✅ Estilo para los títulos */
+/* Estilo para los títulos */
 .miembro h4 {
   font-size: 1.2rem;
-  color: #008000;
+  color: #4CAF50;
   margin-bottom: 10px;
-  /* Espacio entre el título y el párrafo */
   transition: color 0.3s ease;
-  /* Transición suave para el cambio de color */
   text-align: center;
-  /* Asegurar que el título esté centrado */
 }
 
-/* ✅ Estilo para los párrafos */
+/* Estilo para los párrafos */
 .miembro p {
-  color: black;
+  color: #686868;
   font-size: 1rem;
   line-height: 1.5;
   transition: color 0.3s ease;
-  /* Transición suave para el cambio de color */
   text-align: center;
-  /* Centrar párrafos */
 }
 
-/* ✅ Cambios de color para el título y párrafo dentro del hover del contenedor */
+/* Cambios de color para el título y párrafo dentro del hover del contenedor */
 .miembro:hover h4 {
-  color: #008000;
-  /* Mantener el título en verde */
+  color: #4CAF50;
 }
 
 .miembro:hover p {
-  color: black;
-  /* Mantener el párrafo en negro */
+  color: #686868;
 }
 
-/* ✅ Ajustes para pantallas pequeñas (mobile-first approach) */
+/* Ajustes para pantallas pequeñas (mobile-first approach) */
 @media (max-width: 1024px) {
   .contenedor-equipo {
     grid-template-columns: repeat(2, 1fr);
-    /* 2 por fila en pantallas medianas */
   }
 
   .miembro {
     text-align: center;
-    /* Mantener centrado en pantallas medianas */
   }
 }
 
 @media (max-width: 768px) {
   .contenedor-equipo {
     grid-template-columns: 1fr;
-    /* 1 por fila en pantallas pequeñas */
   }
 
   .miembro p,
   .miembro h4 {
     text-align: center;
-    /* Reforzar alineación centrada en móviles */
   }
 }
 
 /* Footer */
 footer {
-  background: linear-gradient(to right, #333333, #72A73B);
+  background: linear-gradient(to right, #333333, #4CAF50);
   color: #fff;
   padding: 5px 10px;
-  /* Reduce la altura */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -627,21 +578,19 @@ footer {
 footer .social-links {
   display: flex;
   justify-content: flex-start;
-  /* Centrado a la izquierda */
   align-items: center;
   gap: 5px;
 }
 
 footer .social-links img {
   height: 35px;
-  /* Ajusta el tamaño de los íconos */
   width: 35px;
 }
 
 footer p {
   font-size: 12px;
-  /* Tamaño más pequeño */
   text-align: right;
-  /* Alineado a la derecha */
   margin: 0;
+  color: #fff;
+  /* Keep footer text white for better contrast */
 }
