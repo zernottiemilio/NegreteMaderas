@@ -9,12 +9,12 @@
   margin: 0;
   padding: 0;
   font-family: 'Made', sans-serif;
+  box-sizing: border-box;
 }
 
-/* Estilos generales del modal */
+/* Existing modal styles remain the same */
 .modal-overlay {
   display: none;
-  /* Oculto por defecto */
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -29,23 +29,22 @@
 
 .modal-content {
   background: white;
-  width: 80%;
-  max-width: 400px;
-  padding: 25px;
+  width: 90%;
+  max-width: 420px;
+  padding: 30px 25px;
   border-radius: 20px;
   text-align: center;
   position: relative;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-/* Botón de cierre (X) */
 #closeModal {
   position: absolute;
-  top: 10px;
-  /* Arriba del título */
-  right: 15px;
-  font-size: 16px;
-  /* Más pequeño */
+  top: 15px;
+  right: 20px;
+  font-size: 18px;
   cursor: pointer;
   color: gray;
   background: none;
@@ -54,169 +53,193 @@
   line-height: 1;
 }
 
-/* Imagen de inicio de sesión */
 .logo-login {
   width: 80px;
-  /* Tamaño de la imagen */
   height: 80px;
-  margin: 0 auto 15px;
+  margin: 0 auto 20px;
   border-radius: 50%;
-  /* Opcional: si quieres bordes redondeados */
   object-fit: cover;
-  /* Asegura que la imagen se ajuste correctamente */
 }
 
-/* Título */
 h2 {
   color: green;
-  font-size: 18px;
-  /* Tamaño ajustado */
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-/* Estilos de los inputs */
+/* ================== */
+/* ESTILOS PARA LOS INPUTS */
+/* ================== */
 .input-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Centrar elementos horizontalmente */
-  margin-bottom: 15px;
-  /* Espaciado entre campos */
   width: 100%;
-  /* Ancho completo del contenedor */
-  max-width: 300px;
-  /* Largo fijo para todas las barras */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.input-container label {
-  font-size: 14px;
-  margin-bottom: 5px;
-  /* Espacio entre el label y el input */
-  font-weight: bold;
-  text-align: center;
-  /* Centrar el texto del label */
-  width: 100%;
-  /* Asegurar que el label ocupe todo el ancho disponible */
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .input-container input {
   width: 100%;
-  /* Ancho completo dentro del contenedor */
-  padding: 12px;
-  /* Altura ajustada */
+  padding: 14px 45px 14px 20px;
+  /* Increased right padding for toggle */
   border: 1px solid #ccc;
-  border-radius: 20px;
-  /* Bordes redondeados */
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-  /* Efecto suave al enfocar */
-  text-align: center;
-  /* Centrar el texto dentro del input */
+  border-radius: 25px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
 }
 
 .input-container input:focus {
   border-color: green;
-  /* Cambia el color del borde al enfocar */
   outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.1);
 }
 
-/* Estilos para el contenedor de la contraseña */
+/* ================== */
+/* ESTILOS PARA EL TOGGLE DE CONTRASEÑA */
+/* ================== */
 .password-container {
-  display: flex;
-  align-items: center;
-  position: relative;
   width: 100%;
+  position: relative;
 }
 
-/* Asegurar que el input de contraseña tenga espacio para el ícono */
-.password-container input {
-  padding-right: 40px;
-  /* Espacio para el ícono */
-  text-align: center;
-  /* Centrar el texto dentro del input */
-}
-
-/* Estilos para el ícono del ojo */
-.password-container i {
+.toggle-password {
   position: absolute;
-  right: 12px;
-  /* Ajustado para alinearse perfectamente con la barra */
+  right: 20px;
   top: 50%;
-  /* Centrar verticalmente */
   transform: translateY(-50%);
-  /* Centrar verticalmente */
   cursor: pointer;
-  color: gray;
-  font-size: 18px;
-  z-index: 1;
-  /* Asegurar que esté por encima de otros elementos */
+  z-index: 10;
 }
 
-/* Asegurar que el ícono sea visible */
-.password-container i:hover {
-  color: darkgray;
-  /* Cambiar color al pasar el mouse */
+.toggle-password svg {
+  width: 22px;
+  height: 22px;
+  fill: #666;
+  transition: all 0.3s ease;
 }
 
-/* Botón Iniciar sesión */
+.toggle-password:hover svg {
+  fill: #333;
+  transform: scale(1.05);
+}
+
+/* Existing submit button styles */
 button[type="submit"] {
   background-color: green;
   color: white;
-  padding: 12px;
-  /* Altura ajustada */
-  width: 80%;
-  /* Ancho ajustado */
+  padding: 14px;
+  width: 85%;
   border: none;
-  border-radius: 20px;
-  /* Bordes redondeados */
+  border-radius: 25px;
   cursor: pointer;
-  margin-top: 15px;
+  margin-top: 20px;
   font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
-  /* Efecto suave al pasar el mouse */
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 button[type="submit"]:hover {
-  background-color: darkgreen;
-  /* Cambia el color al pasar el mouse */
+  background-color: #006400;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 100, 0, 0.2);
 }
 
-/* Enlace de contraseña olvidada */
 .forgot-password {
   display: block;
-  margin: 15px 0;
+  margin: 20px 0 10px;
   font-size: 14px;
   color: green;
   text-decoration: none;
-  transition: color 0.3s ease;
-  /* Efecto suave al pasar el mouse */
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .forgot-password:hover {
   color: darkgreen;
-  /* Cambia el color al pasar el mouse */
+  text-decoration: underline;
 }
 
-/* Responsive */
+/* ================== */
+/* MEDIA QUERIES PARA RESPONSIVE */
+/* ================== */
+
+/* Estilos para móviles pequeños (hasta 500px) */
 @media (max-width: 500px) {
   .modal-content {
     width: 95%;
-    padding: 20px;
-    /* Menos espacio interno en pantallas pequeñas */
+    padding: 25px 20px;
   }
 
   .logo-login {
-    width: 60px;
-    /* Tamaño reducido en móviles */
-    height: 60px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .input-container {
+    max-width: 100%;
+  }
+
+  .toggle-password {
+    right: 14px;
   }
 }
 
-/* Estilos para las notificaciones de error */
+/* Estilos para desktop (a partir de 768px) */
+@media (min-width: 768px) {
+  .modal-content {
+    width: 450px;
+    padding: 40px;
+  }
+
+  .logo-login {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .input-container {
+    max-width: 350px;
+  }
+
+  .input-container input {
+    padding: 16px 45px 16px 25px;
+    /* Increased right padding for toggle */
+    font-size: 16px;
+  }
+
+  button[type="submit"] {
+    padding: 16px;
+    font-size: 17px;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .toggle-password {
+    right: 20px;
+  }
+}
+
+/* Estilos para pantallas muy grandes (a partir de 1200px) */
+@media (min-width: 1200px) {
+  .modal-content {
+    width: 480px;
+    padding: 45px;
+  }
+}
+
+/* ================== */
+/* ESTILOS RESTANTES (se mantienen igual) */
+/* ================== */
+
 .notification {
   display: none;
   width: 100%;
@@ -293,7 +316,6 @@ button[type="submit"]:hover {
   animation: shake 0.6s ease;
 }
 
-/* Estilos para el menú desplegable de cuenta */
 .account-dropdown {
   display: none;
   position: absolute;
@@ -323,7 +345,6 @@ button[type="submit"]:hover {
   border-top: 1px solid #e0e0e0;
 }
 
-/* Estilos para mostrar que el botón de MI CUENTA tiene un menú desplegable */
 .login-btn[data-status="logged-in"] {
   position: relative;
 }
@@ -335,7 +356,6 @@ button[type="submit"]:hover {
   vertical-align: middle;
 }
 
-/* Estilos para el modal de recuperación de contraseña */
 .password-reset-modal {
   max-width: 400px;
   padding: 30px;
@@ -416,296 +436,6 @@ button[type="submit"]:hover {
   color: #000;
 }
 
-/* Estilos para las notificaciones dentro del modal */
-.password-reset-modal .notification {
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  display: none;
-  position: relative;
-}
-
-.password-reset-modal .notification-error {
-  background-color: #ffebee;
-  color: #c62828;
-  border-left: 4px solid #c62828;
-}
-
-.password-reset-modal .notification-success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border-left: 4px solid #2e7d32;
-}
-
-.password-reset-modal .notification-close {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 18px;
-  color: inherit;
-  opacity: 0.7;
-}
-
-.password-reset-modal .notification-close:hover {
-  opacity: 1;
-}
-
-/* Animación de shake para errores */
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-.shake {
-  animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-/* Estilos adicionales para el overlay del modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Estilos para el modal de recuperación de contraseña */
-.password-reset-modal {
-  max-width: 400px;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  background-color: white;
-  position: relative;
-}
-
-.password-reset-modal h2 {
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 24px;
-}
-
-.password-reset-modal p {
-  margin-bottom: 20px;
-  color: #555;
-  text-align: center;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.password-reset-modal .form-group {
-  margin-bottom: 20px;
-}
-
-.password-reset-modal label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #444;
-}
-
-.password-reset-modal input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 15px;
-  transition: border-color 0.3s;
-}
-
-.password-reset-modal input:focus {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-}
-
-.password-reset-modal .btn-primary {
-  width: 100%;
-  padding: 12px;
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.password-reset-modal .btn-primary:hover {
-  background-color: #357abd;
-}
-
-.close-modal {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #666;
-  transition: color 0.2s;
-}
-
-.close-modal:hover {
-  color: #000;
-}
-
-/* Estilos para las notificaciones dentro del modal */
-.password-reset-modal .notification {
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  display: none;
-  position: relative;
-}
-
-.password-reset-modal .notification-error {
-  background-color: #ffebee;
-  color: #c62828;
-  border-left: 4px solid #c62828;
-}
-
-.password-reset-modal .notification-success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border-left: 4px solid #2e7d32;
-}
-
-.password-reset-modal .notification-close {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 18px;
-  color: inherit;
-  opacity: 0.7;
-}
-
-.password-reset-modal .notification-close:hover {
-  opacity: 1;
-}
-
-/* Animación de shake para errores */
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-.shake {
-  animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-/* Estilos adicionales para el overlay del modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Estilos para el menú desplegable de la cuenta */
-.account-dropdown {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: none;
-  min-width: 160px;
-  position: absolute;
-  z-index: 1000;
-}
-
-.account-dropdown a {
-  color: #333;
-  display: block;
-  padding: 10px 15px;
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.account-dropdown a:hover {
-  background-color: #f5f5f5;
-}
-
-.private-section-option {
-  border-bottom: 1px solid #eee;
-}
-
-/* Estilos para el menú desplegable en escritorio (como ya tenías) */
-.account-dropdown {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 200px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.account-dropdown a {
-  color: #333;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.3s;
-}
-
-.account-dropdown a:hover {
-  background-color: #f5f5f5;
-}
-
-/* Estilos para el sidebar en móviles */
 .mobile-sidebar {
   display: none;
   position: fixed;
@@ -777,50 +507,18 @@ button[type="submit"]:hover {
   background-color: #f5f5f5;
 }
 
-/* Para prevenir el scroll del body cuando el sidebar está abierto */
 body.sidebar-open {
   overflow: hidden;
 }
 
-/* Animación para dar un efecto de shake */
-.shake {
-  animation: shake 0.6s ease-in-out;
-}
-
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-/* Media queries para comportamiento responsivo */
 @media screen and (max-width: 1023px) {
   .account-dropdown {
     display: none !important;
-    /* Forzar ocultamiento en dispositivos móviles */
   }
 }
 
 @media screen and (min-width: 1024px) {
   .mobile-sidebar {
     display: none !important;
-    /* Forzar ocultamiento en escritorio */
   }
 }

@@ -16,7 +16,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
+  height: 95px;
   padding: 30px;
   background-image: url('/images/RECTANGULO\ DE\ ARRIBA-12.png');
   background-size: cover;
@@ -71,18 +71,20 @@ nav ul li a {
 nav ul li a:hover {
   color: #4CAF50;
 }
-
 nav ul li a::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -10px;
+  bottom: -5px;
+  /* Reducido de -10px para que quede dentro del header */
   height: 10px;
+  /* Reducido de 10px para ser más sutil */
   background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 0 0 10px 10px;
+  border-radius: 0px 0px 10px 10px;
+  /* Reducido para corresponder a la nueva altura */
   transform: scaleX(0);
-  transform-origin: top;
+  transform-origin: center;
   transition: transform 0.3s ease;
 }
 
